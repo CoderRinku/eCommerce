@@ -12,7 +12,7 @@ export function Navbar() {
   const { cartCount } = useCart();
   const { data: session } = useSession();
   
-  const [theme, setTheme] = React.useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = React.useState<'light' | 'dark'>('light');
 
   React.useEffect(() => {
     // Run inside client context

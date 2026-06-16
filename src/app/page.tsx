@@ -97,28 +97,85 @@ export default async function Home() {
       <div className="absolute bottom-[20%] right-[-10%] h-[600px] w-[600px] rounded-full bg-violet-600/10 blur-[130px] animate-float-reverse pointer-events-none" />
 
       {/* Hero Section */}
-      <section className="relative px-6 py-24 md:py-32 max-w-7xl mx-auto flex flex-col items-center text-center z-10">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/5 text-xs text-indigo-400 font-semibold animate-fade-in-up duration-700">
-          <BadgePercent className="h-4 w-4 text-indigo-400" />
-          Use Coupon WELCOME10 for 10% Off
+      <section className="relative px-6 py-16 md:py-24 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10">
+        {/* Left Column: Heading and CTAs */}
+        <div className="lg:col-span-7 flex flex-col items-start text-left space-y-6">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/5 text-xs text-indigo-400 font-semibold animate-fade-in-up duration-700">
+            <BadgePercent className="h-4 w-4 text-indigo-400" />
+            Use Coupon WELCOME10 for 10% Off
+          </div>
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1] animate-fade-in-up delay-100 duration-700">
+            Redefining Everyday Essentials with{' '}
+            <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-500 bg-clip-text text-transparent drop-shadow-sm">
+              Premium Design
+            </span>
+          </h1>
+          <p className="text-base sm:text-lg text-neutral-400 leading-relaxed max-w-xl animate-fade-in-up delay-200 duration-700">
+            Handcrafted lifestyle products made with precision and minimal aesthetics. Experience express checkout with cash on delivery inside Bangladesh.
+          </p>
+          <div className="flex flex-wrap gap-4 pt-4 animate-fade-in-up delay-300 duration-700">
+            <Link
+              href="/shop"
+              className="flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-4 text-sm font-semibold text-white hover:bg-indigo-500 transition-all duration-300 shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/30 hover:scale-[1.02] group cursor-pointer"
+            >
+              Explore Catalog
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href="/shop?category=Electronics"
+              className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/5 px-6 py-4 text-sm font-semibold text-neutral-300 hover:text-white hover:bg-white/10 hover:border-white/10 transition-all duration-300 cursor-pointer"
+            >
+              Featured Deal
+            </Link>
+          </div>
         </div>
-        <h1 className="mt-8 text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.1] animate-fade-in-up delay-100 duration-700">
-          Redefining Everyday Essentials with{' '}
-          <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-500 bg-clip-text text-transparent drop-shadow-sm">
-            Premium Design
-          </span>
-        </h1>
-        <p className="mt-8 text-lg text-neutral-400 max-w-2xl leading-relaxed animate-fade-in-up delay-200 duration-700">
-          Handcrafted lifestyle products made with precision and minimal aesthetics. Experience express checkout with cash on delivery inside Bangladesh.
-        </p>
-        <div className="mt-10 flex gap-4 animate-fade-in-up delay-300 duration-700">
-          <Link
-            href="/shop"
-            className="flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-4 text-sm font-semibold text-white hover:bg-indigo-500 transition-all duration-300 shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/30 hover:scale-[1.02] group cursor-pointer"
-          >
-            Explore Catalog
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+
+        {/* Right Column: Glassmorphic Floating Preview Card */}
+        <div className="lg:col-span-5 flex justify-center lg:justify-end animate-fade-in-up delay-200 duration-700">
+          <div className="relative w-full max-w-[360px] aspect-[4/5] rounded-3xl glass-card p-5 animate-float shadow-2xl hover:scale-[1.02] transition-all duration-500 hover:border-indigo-500/20 group">
+            {/* Glow background behind image */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/15 to-violet-500/15 rounded-3xl filter blur-xl opacity-40 group-hover:opacity-60 transition-opacity pointer-events-none" />
+            
+            {/* Product Image */}
+            <div className="relative w-full h-[70%] rounded-2xl overflow-hidden bg-neutral-900 border border-white/5 shadow-inner">
+              <Image
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80"
+                alt="Ultra-Bass ANC Headphones"
+                fill
+                priority
+                sizes="(max-w-768px) 100vw, 30vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-neutral-950/80 border border-white/10 text-[9px] font-bold text-indigo-400 backdrop-blur-md uppercase tracking-wider">
+                Hot Deal
+              </span>
+            </div>
+
+            {/* Description / Rating */}
+            <div className="mt-4 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[9px] font-bold text-neutral-500 uppercase tracking-widest">Audio / Electronics</span>
+                <div className="flex items-center gap-1 text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-md text-[9px] font-bold border border-amber-400/15">
+                  <Star className="h-3 w-3 fill-amber-400" />
+                  <span>4.9</span>
+                </div>
+              </div>
+              <h3 className="text-sm font-extrabold text-white group-hover:text-indigo-400 transition-colors">Elite ANC Headphones</h3>
+              <div className="flex justify-between items-center pt-2 border-t border-white/5">
+                <span className="text-xs font-extrabold text-white">BDT 13,500</span>
+                <Link href="/product/anc-headphones" className="text-[10px] font-bold text-indigo-400 hover:underline flex items-center gap-1">
+                  Buy Now
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Floating mini stats pill */}
+            <div className="absolute -left-6 bottom-1/3 px-3 py-2 rounded-xl glass-card border border-white/10 flex items-center gap-2 shadow-lg animate-float-reverse">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+              <span className="text-[9px] font-bold text-white whitespace-nowrap">8 left in stock</span>
+            </div>
+          </div>
         </div>
       </section>
 

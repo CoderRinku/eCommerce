@@ -91,26 +91,30 @@ export default async function Home() {
   }
 
   return (
-    <div className="bg-mesh min-h-screen">
+    <div className="bg-mesh min-h-screen relative overflow-hidden">
+      {/* Animated Glowing Orbital Blobs (Background) */}
+      <div className="absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[120px] animate-float pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[-10%] h-[600px] w-[600px] rounded-full bg-violet-600/10 blur-[130px] animate-float-reverse pointer-events-none" />
+
       {/* Hero Section */}
-      <section className="relative px-6 py-24 md:py-32 max-w-7xl mx-auto flex flex-col items-center text-center">
-        <div className="absolute top-12 flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/5 text-xs text-indigo-400 font-semibold animate-pulse">
-          <BadgePercent className="h-4 w-4" />
+      <section className="relative px-6 py-24 md:py-32 max-w-7xl mx-auto flex flex-col items-center text-center z-10">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/5 text-xs text-indigo-400 font-semibold animate-fade-in-up duration-700">
+          <BadgePercent className="h-4 w-4 text-indigo-400" />
           Use Coupon WELCOME10 for 10% Off
         </div>
-        <h1 className="mt-6 text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
+        <h1 className="mt-8 text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.1] animate-fade-in-up delay-100 duration-700">
           Redefining Everyday Essentials with{' '}
-          <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-500 bg-clip-text text-transparent drop-shadow-sm">
             Premium Design
           </span>
         </h1>
-        <p className="mt-6 text-lg text-neutral-400 max-w-xl">
+        <p className="mt-8 text-lg text-neutral-400 max-w-2xl leading-relaxed animate-fade-in-up delay-200 duration-700">
           Handcrafted lifestyle products made with precision and minimal aesthetics. Experience express checkout with cash on delivery inside Bangladesh.
         </p>
-        <div className="mt-10 flex gap-4">
+        <div className="mt-10 flex gap-4 animate-fade-in-up delay-300 duration-700">
           <Link
             href="/shop"
-            className="flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 text-sm font-semibold text-white hover:bg-indigo-500 transition-all shadow-xl shadow-indigo-600/20 group cursor-pointer"
+            className="flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-4 text-sm font-semibold text-white hover:bg-indigo-500 transition-all duration-300 shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/30 hover:scale-[1.02] group cursor-pointer"
           >
             Explore Catalog
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

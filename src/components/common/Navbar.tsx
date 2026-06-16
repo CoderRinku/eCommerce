@@ -5,12 +5,35 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/components/providers/CartProvider';
 import { useSession, signOut } from 'next-auth/react';
-import { ShoppingBag, LogOut, Shield, LayoutDashboard } from 'lucide-react';
+import { ShoppingBag, LogOut, Shield, LayoutDashboard, Sun, Moon } from 'lucide-react';
 
 export function Navbar() {
   const pathname = usePathname();
   const { cartCount } = useCart();
   const { data: session } = useSession();
+  
+  const [theme, setTheme] = React.useState<'light' | 'dark'>('dark');
+
+  React.useEffect(() => {
+    // Run inside client context
+    const isDark = document.documentElement.classList.contains('dark');
+    const timer = setTimeout(() => {
+      setTheme(isDark ? 'dark' : 'light');
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const toggleTheme = () => {
+    if (theme === 'dark') {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+      setTheme('light');
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      setTheme('dark');
+    }
+  };
 
   const handleLogout = () => {
     signOut({ callbackUrl: '/' });
@@ -58,6 +81,15 @@ export function Navbar() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-4">
+            {/* Theme Switcher Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-neutral-400 hover:text-white transition-colors cursor-pointer rounded-lg bg-white/5 border border-white/5 hover:bg-white/10"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {theme === 'dark' ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4 text-indigo-400" />}
+            </button>
+
             {/* Cart Icon */}
             <Link
               href="/cart"

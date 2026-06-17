@@ -94,7 +94,7 @@ export default function Shop() {
             placeholder="Search organic honey, ghee, spices..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900/50 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50 transition-colors"
+            className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900/50 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-orange-500/50 transition-colors"
           />
         </div>
 
@@ -106,7 +106,7 @@ export default function Shop() {
               onClick={() => setSelectedCategory(category)}
               className={`px-4.5 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                 selectedCategory === category
-                  ? 'bg-emerald-600 border-transparent text-white shadow-lg shadow-emerald-600/15'
+                  ? 'bg-orange-600 border-transparent text-white shadow-lg shadow-orange-600/15'
                   : 'bg-neutral-900/40 border-white/5 text-neutral-400 hover:text-white hover:bg-neutral-900/80'
               }`}
             >
@@ -119,7 +119,7 @@ export default function Shop() {
       {/* Loading State */}
       {loading ? (
         <div className="flex flex-col items-center justify-center py-32 gap-4">
-          <Loader2 className="h-8 w-8 text-emerald-500 animate-spin" />
+          <Loader2 className="h-8 w-8 text-orange-500 animate-spin" />
           <p className="text-sm text-neutral-500">Loading SokolBazar catalog...</p>
         </div>
       ) : filteredProducts.length === 0 ? (

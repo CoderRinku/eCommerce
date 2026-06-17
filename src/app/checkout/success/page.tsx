@@ -39,7 +39,7 @@ export default function CheckoutSuccessPage() {
   if (loading) {
     return (
       <div className="bg-mesh min-h-screen py-32 flex flex-col items-center justify-center text-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-emerald-600 border-solid" />
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-orange-600 border-solid" />
         <p className="mt-4 text-xs text-neutral-400">Loading order receipt...</p>
       </div>
     );
@@ -54,7 +54,7 @@ export default function CheckoutSuccessPage() {
         </p>
         <Link
           href="/shop"
-          className="flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-xs font-semibold text-white hover:bg-emerald-500 transition-colors shadow-lg cursor-pointer"
+          className="flex items-center gap-2 rounded-xl bg-orange-600 px-6 py-3 text-xs font-semibold text-white hover:bg-orange-500 transition-colors shadow-lg cursor-pointer"
         >
           <ShoppingBag className="h-4 w-4" />
           Continue Shopping
@@ -69,7 +69,7 @@ export default function CheckoutSuccessPage() {
   return (
     <div className="bg-mesh min-h-screen py-16 px-6 max-w-3xl mx-auto w-full flex-1 flex flex-col justify-center animate-fade-in">
       <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-6">
+        <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 mb-6">
           <CheckCircle2 className="h-8 w-8" />
         </div>
         <h1 className="text-3xl font-extrabold text-white">Order Placed Successfully!</h1>
@@ -96,7 +96,7 @@ export default function CheckoutSuccessPage() {
             {/* Delivery Estimates */}
             <div className="space-y-2">
               <p className="font-bold text-neutral-300 flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
-                <Calendar className="h-4 w-4 text-emerald-400" />
+                <Calendar className="h-4 w-4 text-orange-400" />
                 Estimated Delivery
               </p>
               <p className="text-white text-xs font-semibold">{deliveryTimeline}</p>
@@ -109,7 +109,7 @@ export default function CheckoutSuccessPage() {
             {order.trackingId && (
               <div className="space-y-2">
                 <p className="font-bold text-neutral-300 flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
-                  <Truck className="h-4 w-4 text-emerald-400" />
+                  <Truck className="h-4 w-4 text-orange-400" />
                   Steadfast Courier tracking
                 </p>
                 <p className="text-white font-mono text-xs font-bold uppercase select-all">{order.trackingId}</p>
@@ -145,7 +145,7 @@ export default function CheckoutSuccessPage() {
           {session ? (
             <Link
               href="/dashboard"
-              className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3.5 text-xs font-bold text-white transition-colors cursor-pointer"
+              className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-orange-600 hover:bg-orange-500 py-3.5 text-xs font-bold text-white transition-colors cursor-pointer"
             >
               <FileText className="h-4 w-4" />
               Go to Dashboard
@@ -153,7 +153,7 @@ export default function CheckoutSuccessPage() {
           ) : (
             <Link
               href="/register"
-              className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3.5 text-xs font-bold text-white transition-colors cursor-pointer"
+              className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-orange-600 hover:bg-orange-500 py-3.5 text-xs font-bold text-white transition-colors cursor-pointer"
             >
               <UserPlus className="h-4 w-4" />
               Create Account for Tracking

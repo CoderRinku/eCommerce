@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/components/providers/CartProvider';
 import { useSession, signOut } from 'next-auth/react';
@@ -34,13 +35,15 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <span className="h-8.5 w-8.5 rounded-xl bg-gradient-to-tr from-emerald-500 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 font-black text-xs tracking-tighter transition-all group-hover:scale-105 group-hover:shadow-emerald-500/35">
-                SB
-              </span>
-              <span className="text-base font-black tracking-tight text-neutral-800 transition-colors duration-300">
-                Sokol<span className="text-emerald-500 font-extrabold">Bazar</span>
-              </span>
+            <Link href="/" className="flex items-center gap-2 group">
+              <Image 
+                src="/logo.png" 
+                alt="SokolBazar Logo" 
+                width={160} 
+                height={40} 
+                className="h-10 w-auto object-contain transition-all duration-300 group-hover:scale-102"
+                priority
+              />
             </Link>
           </div>
 
@@ -48,20 +51,20 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-8">
             <Link
               href="/"
-              className={`text-xs uppercase tracking-wider font-bold transition-all relative py-1.5 hover:text-emerald-500 ${
+              className={`text-xs uppercase tracking-wider font-bold transition-all relative py-1.5 hover:text-orange-600 ${
                 isActive('/') 
-                  ? 'text-emerald-500 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-emerald-500' 
-                  : 'text-neutral-500 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-emerald-500/40 hover:after:w-full after:transition-all after:duration-300'
+                  ? 'text-orange-600 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-orange-600' 
+                  : 'text-neutral-500 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-600/40 hover:after:w-full after:transition-all after:duration-300'
               }`}
             >
               Home
             </Link>
             <Link
               href="/shop"
-              className={`text-xs uppercase tracking-wider font-bold transition-all relative py-1.5 hover:text-emerald-500 ${
+              className={`text-xs uppercase tracking-wider font-bold transition-all relative py-1.5 hover:text-orange-600 ${
                 isActive('/shop') 
-                  ? 'text-emerald-500 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-emerald-500' 
-                  : 'text-neutral-500 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-emerald-500/40 hover:after:w-full after:transition-all after:duration-300'
+                  ? 'text-orange-600 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-orange-600' 
+                  : 'text-neutral-500 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-600/40 hover:after:w-full after:transition-all after:duration-300'
               }`}
             >
               Shop
@@ -91,7 +94,7 @@ export function Navbar() {
                   <Link
                     href="/admin"
                     title="Admin Panel"
-                    className="p-2 text-emerald-500 hover:text-emerald-600 transition-colors cursor-pointer"
+                    className="p-2 text-orange-600 hover:text-orange-700 transition-colors cursor-pointer"
                   >
                     <Shield className="h-5 w-5" />
                   </Link>
@@ -125,7 +128,7 @@ export function Navbar() {
                 </Link>
                 <Link
                   href="/register"
-                  className="rounded-lg bg-emerald-600 px-3.5 py-1.5 text-sm font-medium text-white hover:bg-emerald-500 transition-colors shadow-lg shadow-emerald-600/20 cursor-pointer"
+                  className="rounded-lg bg-orange-600 px-3.5 py-1.5 text-sm font-medium text-white hover:bg-orange-500 transition-colors shadow-lg shadow-orange-600/20 cursor-pointer"
                 >
                   Sign Up
                 </Link>

@@ -18,7 +18,7 @@ export function Footer() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           {/* Brand Info */}
           <div className="space-y-4">
-            <span className="bg-gradient-to-r from-emerald-400 to-amber-500 bg-clip-text text-lg font-extrabold tracking-tight text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-lg font-extrabold tracking-tight text-transparent">
               🍃 SokolBazar
             </span>
             <p className="text-sm text-neutral-400 max-w-xs">

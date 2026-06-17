@@ -44,14 +44,14 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             key={t.id}
             className={`flex items-center justify-between gap-3 p-4 rounded-xl border shadow-xl backdrop-blur-md transition-all duration-300 ${
               t.type === 'success'
-                ? 'bg-emerald-500/10 border-emerald-500/35 text-emerald-400'
+                ? 'bg-orange-500/10 border-orange-500/35 text-orange-400'
                 : t.type === 'error'
                 ? 'bg-rose-500/10 border-rose-500/35 text-rose-400'
                 : 'bg-blue-500/10 border-blue-500/35 text-blue-400'
             }`}
           >
             <div className="flex items-center gap-3">
-              {t.type === 'success' && <CheckCircle className="h-5 w-5 text-emerald-400 shrink-0" />}
+              {t.type === 'success' && <CheckCircle className="h-5 w-5 text-orange-400 shrink-0" />}
               {t.type === 'error' && <AlertCircle className="h-5 w-5 text-rose-400 shrink-0" />}
               {t.type === 'info' && <Info className="h-5 w-5 text-blue-400 shrink-0" />}
               <span className="text-sm font-medium text-white">{t.message}</span>

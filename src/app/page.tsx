@@ -184,11 +184,11 @@ export default async function Home() {
   return (
     <div className="bg-mesh min-h-screen relative overflow-hidden pb-16">
       {/* Background blobs for premium depth */}
-      <div className="absolute top-[-5%] left-[-5%] h-[400px] w-[400px] rounded-full bg-emerald-500/5 blur-[100px] animate-float pointer-events-none" />
+      <div className="absolute top-[-5%] left-[-5%] h-[400px] w-[400px] rounded-full bg-orange-500/5 blur-[100px] animate-float pointer-events-none" />
       <div className="absolute bottom-[20%] right-[-5%] h-[500px] w-[500px] rounded-full bg-amber-500/5 blur-[120px] animate-float-reverse pointer-events-none" />
 
       {/* Top Notification Promo Banner */}
-      <div className="bg-gradient-to-r from-emerald-900/5 to-amber-900/5 border-b border-neutral-100 py-2.5 px-4 text-center text-[11px] md:text-xs text-neutral-600 flex justify-center items-center gap-2 font-bold z-20 relative">
+      <div className="bg-gradient-to-r from-orange-900/5 to-amber-900/5 border-b border-neutral-100 py-2.5 px-4 text-center text-[11px] md:text-xs text-neutral-600 flex justify-center items-center gap-2 font-bold z-20 relative">
         <BadgePercent className="h-4 w-4 text-amber-550 text-amber-655" />
         <span>স্পেশাল প্রোমো কোড: <strong className="text-neutral-800">SOKOL10</strong> ব্যবহারে পাচ্ছেন ১০% ছাড় (ন্যূনতম অর্ডার ১৫০০ টাকা)।</span>
       </div>
@@ -201,17 +201,17 @@ export default async function Home() {
           <div className="hidden lg:block lg:col-span-3 rounded-3xl glass-card p-5 border border-neutral-200/60 self-start shadow-sm">
             <h3 className="text-[10px] font-bold uppercase text-neutral-500 tracking-widest mb-5 px-1.5 flex items-center justify-between">
               <span>ক্যাটাগরি সমূহ</span>
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="h-1.5 w-1.5 rounded-full bg-orange-500 animate-pulse" />
             </h3>
             <ul className="space-y-2">
               {categories.map((cat) => (
                 <li key={cat._id.toString()}>
                   <a
                     href={`#${cat.slug}`}
-                    className="flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs font-bold text-neutral-600 hover:text-emerald-600 hover:bg-emerald-500/8 border border-transparent hover:border-emerald-500/10 transition-all duration-300 group"
+                    className="flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs font-bold text-neutral-600 hover:text-orange-600 hover:bg-orange-500/8 border border-transparent hover:border-orange-500/10 transition-all duration-300 group"
                   >
                     <span className="flex items-center gap-3">
-                      <Leaf className="h-4 w-4 text-emerald-500/60 group-hover:text-emerald-500 group-hover:rotate-6 transition-all" />
+                      <Leaf className="h-4 w-4 text-orange-500/60 group-hover:text-orange-500 group-hover:rotate-6 transition-all" />
                       {banglaCategoryMap[cat.slug] || cat.name}
                     </span>
                     <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
@@ -221,7 +221,7 @@ export default async function Home() {
               <li className="pt-2">
                 <Link
                   href="/shop"
-                  className="flex items-center justify-between px-3.5 py-3.5 rounded-2xl text-xs font-extrabold text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-300 shadow-lg shadow-emerald-600/15 hover:shadow-emerald-600/35 cursor-pointer"
+                  className="flex items-center justify-between px-3.5 py-3.5 rounded-2xl text-xs font-extrabold text-white bg-orange-600 hover:bg-orange-500 transition-all duration-300 shadow-lg shadow-orange-600/15 hover:shadow-orange-600/35 cursor-pointer"
                 >
                   <span className="flex items-center gap-3">
                     <ShoppingBag className="h-4 w-4" />
@@ -250,14 +250,14 @@ export default async function Home() {
             <a
               key={cat._id.toString()}
               href={`#${cat.slug}`}
-              className="flex-none px-4.5 py-2.5 rounded-2xl bg-white border border-neutral-200 text-xs font-bold text-neutral-600 hover:text-emerald-650 active:bg-neutral-50 whitespace-nowrap transition-all duration-300"
+              className="flex-none px-4.5 py-2.5 rounded-2xl bg-white border border-neutral-200 text-xs font-bold text-neutral-600 hover:text-orange-600 active:bg-neutral-50 whitespace-nowrap transition-all duration-300"
             >
               {banglaCategoryMap[cat.slug] || cat.name}
             </a>
           ))}
           <Link
             href="/shop"
-            className="flex-none px-4.5 py-2.5 rounded-2xl bg-emerald-600/10 border border-emerald-500/20 text-xs font-bold text-emerald-600 whitespace-nowrap"
+            className="flex-none px-4.5 py-2.5 rounded-2xl bg-orange-600/10 border border-orange-500/20 text-xs font-bold text-orange-600 whitespace-nowrap"
           >
             সব প্রোডাক্ট
           </Link>
@@ -268,7 +268,7 @@ export default async function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 md:my-10 z-10 relative">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           <div className="flex items-center gap-4.5 p-5.5 rounded-3xl glass-card-premium border border-neutral-100">
-            <div className="h-11 w-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 shrink-0 shadow-inner">
+            <div className="h-11 w-11 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-600 shrink-0 shadow-inner">
               <Truck className="h-5.5 w-5.5" />
             </div>
             <div>
@@ -278,7 +278,7 @@ export default async function Home() {
           </div>
 
           <div className="flex items-center gap-4.5 p-5.5 rounded-3xl glass-card-premium border border-neutral-100">
-            <div className="h-11 w-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 shrink-0 shadow-inner">
+            <div className="h-11 w-11 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-600 shrink-0 shadow-inner">
               <ShieldCheck className="h-5.5 w-5.5" />
             </div>
             <div>
@@ -288,7 +288,7 @@ export default async function Home() {
           </div>
 
           <div className="flex items-center gap-4.5 p-5.5 rounded-3xl glass-card-premium border border-neutral-100">
-            <div className="h-11 w-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 shrink-0 shadow-inner">
+            <div className="h-11 w-11 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-600 shrink-0 shadow-inner">
               <CheckCircle2 className="h-5.5 w-5.5" />
             </div>
             <div>
@@ -297,13 +297,13 @@ export default async function Home() {
             </div>
           </div>
 
-          <a href="tel:01810000000" className="flex items-center gap-4.5 p-5.5 rounded-3xl glass-card-premium border border-neutral-100 hover:border-emerald-500/20 transition-all cursor-pointer">
+          <a href="tel:01810000000" className="flex items-center gap-4.5 p-5.5 rounded-3xl glass-card-premium border border-neutral-100 hover:border-orange-500/20 transition-all cursor-pointer">
             <div className="h-11 w-11 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-550 text-amber-600 shrink-0 shadow-inner">
               <Phone className="h-5.5 w-5.5" />
             </div>
             <div>
               <h4 className="text-xs md:text-sm font-black text-neutral-800 leading-tight">সহায়তার জন্য কল করুন</h4>
-              <p className="text-[10px] text-emerald-600 font-bold mt-1">০১৮১-০০০০০০০ (২৪/৭ সাপোর্ট)</p>
+              <p className="text-[10px] text-orange-600 font-bold mt-1">০১৮১-০০০০০০০ (২৪/৭ সাপোর্ট)</p>
             </div>
           </a>
         </div>
@@ -330,8 +330,8 @@ export default async function Home() {
                 <div>
                   <h2 className="text-xl md:text-2xl font-black text-neutral-800 flex items-center gap-3">
                     <span className="relative flex h-3 w-3 shrink-0">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
                     </span>
                     {banglaCategoryMap[category.slug] || category.name}
                   </h2>
@@ -341,7 +341,7 @@ export default async function Home() {
                 </div>
                 <Link
                   href={`/shop?category=${category.name}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:text-emerald-500 transition-colors shrink-0"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-orange-600 hover:text-orange-500 transition-colors shrink-0"
                 >
                   সব দেখুন (View All)
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -369,7 +369,7 @@ export default async function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left">
             <div className="p-6 rounded-2xl glass-card-premium border border-neutral-150 space-y-4 shadow-sm">
-              <div className="h-10 w-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600">
+              <div className="h-10 w-10 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-600">
                 <Leaf className="h-5 w-5" />
               </div>
               <h3 className="text-sm md:text-base font-bold text-neutral-800">১০০% খাঁটি ও প্রাকৃতিক</h3>
@@ -379,7 +379,7 @@ export default async function Home() {
             </div>
 
             <div className="p-6 rounded-2xl glass-card-premium border border-neutral-150 space-y-4 shadow-sm">
-              <div className="h-10 w-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600">
+              <div className="h-10 w-10 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-600">
                 <ShieldCheck className="h-5 w-5" />
               </div>
               <h3 className="text-sm md:text-base font-bold text-neutral-800">কোয়ালিটি কন্ট্রোল টিম</h3>
@@ -389,7 +389,7 @@ export default async function Home() {
             </div>
 
             <div className="p-6 rounded-2xl glass-card-premium border border-neutral-150 space-y-4 shadow-sm">
-              <div className="h-10 w-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600">
+              <div className="h-10 w-10 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-600">
                 <Heart className="h-5 w-5" />
               </div>
               <h3 className="text-sm md:text-base font-bold text-neutral-800">ইনস্ট্যান্ট রিফান্ড গ্যারান্টি</h3>
@@ -411,7 +411,7 @@ export default async function Home() {
         <div className="space-y-4">
           <div className="p-5 rounded-2xl glass-card-premium border border-neutral-150 space-y-2 shadow-xs">
             <h4 className="text-sm font-bold text-neutral-800 flex items-center gap-2">
-              <HelpCircle className="h-4 w-4 text-emerald-600 shrink-0" />
+              <HelpCircle className="h-4 w-4 text-orange-600 shrink-0" />
               আমি কীভাবে অর্ডার করব?
             </h4>
             <p className="text-xs text-neutral-550 pl-6 leading-relaxed">
@@ -421,7 +421,7 @@ export default async function Home() {
 
           <div className="p-5 rounded-2xl glass-card-premium border border-neutral-150 space-y-2 shadow-xs">
             <h4 className="text-sm font-bold text-neutral-800 flex items-center gap-2">
-              <HelpCircle className="h-4 w-4 text-emerald-600 shrink-0" />
+              <HelpCircle className="h-4 w-4 text-orange-600 shrink-0" />
               ডেলিভারি চার্জ কত এবং কত সময় লাগবে?
             </h4>
             <p className="text-xs text-neutral-550 pl-6 leading-relaxed">
@@ -431,7 +431,7 @@ export default async function Home() {
 
           <div className="p-5 rounded-2xl glass-card-premium border border-neutral-150 space-y-2 shadow-xs">
             <h4 className="text-sm font-bold text-neutral-800 flex items-center gap-2">
-              <HelpCircle className="h-4 w-4 text-emerald-600 shrink-0" />
+              <HelpCircle className="h-4 w-4 text-orange-600 shrink-0" />
               আমি কি ডেলিভারি নেওয়ার সময় পণ্য চেক করতে পারব?
             </h4>
             <p className="text-xs text-neutral-550 pl-6 leading-relaxed">

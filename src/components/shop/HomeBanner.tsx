@@ -45,9 +45,9 @@ export function HomeBanner() {
       buttonText: 'ঘি অর্ডার করুন',
       buttonLink: '/shop?category=ghee',
       imageUrl: '/ghee_banner.png',
-      bgColor: 'bg-[#edf7f1]',
-      textColor: 'text-emerald-700',
-      badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200/50',
+      bgColor: 'bg-[#fdf6e2]',
+      textColor: 'text-amber-800',
+      badgeColor: 'bg-amber-100 text-amber-900 border-amber-200/50',
     },
     {
       id: 3,
@@ -85,30 +85,40 @@ export function HomeBanner() {
       {slides.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-1000 grid grid-cols-1 md:grid-cols-12 ${
+          className={`absolute inset-0 transition-all duration-1000 grid grid-cols-1 md:grid-cols-12 ${
             slide.bgColor
-          } ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+          } ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
         >
           {/* Left Text details column */}
           <div className="md:col-span-7 flex flex-col justify-center p-6 md:p-12 space-y-3 md:space-y-5 text-left z-20">
-            <span className={`inline-block self-start px-3 py-1.5 rounded-full border text-[10px] md:text-xs font-bold ${slide.badgeColor} uppercase tracking-wider`}>
+            <span className={`inline-block self-start px-3 py-1.5 rounded-full border text-[10px] md:text-xs font-bold ${slide.badgeColor} uppercase tracking-wider ${
+              index === currentSlide ? 'animate-hero-badge' : 'opacity-0'
+            }`}>
               {slide.badge}
             </span>
             <div className="space-y-1">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-neutral-800 leading-tight">
+              <h2 className={`text-2xl md:text-3xl lg:text-4xl font-black text-neutral-800 leading-tight ${
+                index === currentSlide ? 'animate-hero-title' : 'opacity-0'
+              }`}>
                 {slide.title}
               </h2>
-              <p className="text-xs md:text-sm font-semibold text-neutral-500">
+              <p className={`text-xs md:text-sm font-semibold text-neutral-500 ${
+                index === currentSlide ? 'animate-hero-subtitle' : 'opacity-0'
+              }`}>
                 {slide.subtitle}
               </p>
             </div>
-            <p className="text-xs md:text-sm text-neutral-600 max-w-lg leading-relaxed line-clamp-2 md:line-clamp-none">
+            <p className={`text-xs md:text-sm text-neutral-600 max-w-lg leading-relaxed line-clamp-2 md:line-clamp-none ${
+              index === currentSlide ? 'animate-hero-desc' : 'opacity-0'
+            }`}>
               {slide.description}
             </p>
-            <div className="flex flex-wrap gap-4 pt-2">
+            <div className={`flex flex-wrap gap-4 pt-2 ${
+              index === currentSlide ? 'animate-hero-btn' : 'opacity-0'
+            }`}>
               <Link
                 href={slide.buttonLink}
-                className="flex items-center gap-2 rounded-xl bg-emerald-600 px-5 md:px-6 py-2.5 md:py-3.5 text-xs md:text-sm font-bold text-white hover:bg-emerald-500 transition-all duration-300 shadow-md shadow-emerald-600/10 cursor-pointer"
+                className="flex items-center gap-2 rounded-xl bg-orange-600 px-5 md:px-6 py-2.5 md:py-3.5 text-xs md:text-sm font-bold text-white hover:bg-orange-500 transition-all duration-300 shadow-md shadow-orange-600/10 cursor-pointer animate-pulse-glow"
               >
                 {slide.buttonText}
                 <ArrowRight className="h-4 w-4" />
@@ -117,7 +127,7 @@ export function HomeBanner() {
                 href="tel:01810000000"
                 className="flex items-center gap-2 rounded-xl bg-white border border-neutral-200 px-5 md:px-6 py-2.5 md:py-3.5 text-xs md:text-sm font-bold text-neutral-700 hover:text-neutral-900 transition-colors"
               >
-                <Phone className="h-4 w-4 text-emerald-600" />
+                <Phone className="h-4 w-4 text-orange-600" />
                 ফোনে অর্ডার: ০১৮১০০০০০০০
               </a>
             </div>
@@ -132,7 +142,9 @@ export function HomeBanner() {
               fill
               priority={index === 0}
               sizes="30vw"
-              className="object-cover transition-transform duration-1000 group-hover:scale-105"
+              className={`object-cover transition-transform duration-1000 group-hover:scale-105 ${
+                index === currentSlide ? 'animate-hero-image' : 'opacity-0'
+              }`}
             />
           </div>
         </div>
@@ -159,7 +171,7 @@ export function HomeBanner() {
             key={index}
             onClick={() => setCurrentSlide(index)}
             className={`h-1.5 transition-all rounded-full cursor-pointer ${
-              index === currentSlide ? 'w-6 bg-emerald-600' : 'w-1.5 bg-neutral-300'
+              index === currentSlide ? 'w-6 bg-orange-600' : 'w-1.5 bg-neutral-300'
             }`}
           />
         ))}

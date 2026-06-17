@@ -44,7 +44,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300 selection:bg-emerald-500/30 selection:text-emerald-200">
+      <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300 selection:bg-orange-500/30 selection:text-orange-900">
         <AppProviders>
           <Navbar />
           <main className="flex-1 flex flex-col">{children}</main>

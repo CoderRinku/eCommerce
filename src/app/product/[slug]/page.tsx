@@ -67,7 +67,7 @@ export default async function ProductDetailPage({
             className="object-cover"
           />
           {hasDiscount && (
-            <span className="absolute top-4 right-4 px-3 py-1.5 rounded-lg bg-emerald-600 text-xs font-bold text-white shadow-lg">
+            <span className="absolute top-4 right-4 px-3 py-1.5 rounded-lg bg-orange-600 text-xs font-bold text-white shadow-lg">
               Save BDT {(product.price - product.discountPrice).toLocaleString()}
             </span>
           )}
@@ -81,7 +81,7 @@ export default async function ProductDetailPage({
                 {product.category}
               </span>
               {product.isOrganic && (
-                <span className="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                <span className="px-3 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/20 text-xs text-orange-400 font-bold uppercase tracking-wider flex items-center gap-1">
                   <span>🍃</span> 100% Organic
                 </span>
               )}
@@ -120,7 +120,7 @@ export default async function ProductDetailPage({
                     ? 'bg-rose-500 animate-pulse'
                     : product.stock <= 10
                     ? 'bg-amber-500'
-                    : 'bg-emerald-500'
+                    : 'bg-orange-500'
                 }`}
               />
               <span className="text-xs text-neutral-400 font-medium">
@@ -145,15 +145,15 @@ export default async function ProductDetailPage({
             {/* Quality indicators */}
             <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-8 text-center text-[10px] sm:text-xs text-neutral-400">
               <div className="flex flex-col items-center gap-2">
-                <Clock className="h-5 w-5 text-emerald-400" />
+                <Clock className="h-5 w-5 text-orange-400" />
                 <span>Express Shipping</span>
               </div>
               <div className="flex flex-col items-center gap-2">
-                <ShieldCheck className="h-5 w-5 text-emerald-400" />
+                <ShieldCheck className="h-5 w-5 text-orange-400" />
                 <span>COD Doorstep Support</span>
               </div>
               <div className="flex flex-col items-center gap-2">
-                <RefreshCw className="h-5 w-5 text-emerald-400" />
+                <RefreshCw className="h-5 w-5 text-orange-400" />
                 <span>Quality Inspected</span>
               </div>
             </div>

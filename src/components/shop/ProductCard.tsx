@@ -93,7 +93,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* badges */}
         <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5 z-10">
           {product.isOrganic && (
-            <span className="px-2.5 py-1 rounded-lg bg-emerald-600/90 text-[9px] font-bold text-white shadow-md flex items-center gap-0.5 backdrop-blur-xs uppercase tracking-wider">
+            <span className="px-2.5 py-1 rounded-lg bg-orange-600/90 text-[9px] font-bold text-white shadow-md flex items-center gap-0.5 backdrop-blur-xs uppercase tracking-wider">
               <Leaf className="h-2.5 w-2.5" />
               100% Pure
             </span>
@@ -128,7 +128,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
           {/* Title */}
           <Link href={`/product/${product.slug}`} className="block mt-2">
-            <h3 className="text-sm font-extrabold text-neutral-800 line-clamp-2 leading-snug group-hover:text-emerald-500 transition-colors duration-300">
+            <h3 className="text-sm font-extrabold text-neutral-800 line-clamp-2 leading-snug group-hover:text-orange-600 transition-colors duration-300">
               {product.title}
             </h3>
           </Link>
@@ -147,7 +147,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="mt-4 pt-4 border-t border-neutral-100 flex items-baseline gap-2">
             {hasDiscount ? (
               <>
-                <span className="text-base font-black text-emerald-500">
+                <span className="text-base font-black text-orange-600">
                   ৳ {toBanglaNum(product.discountPrice)}
                 </span>
                 <span className="text-xs text-neutral-500 line-through">
@@ -166,7 +166,7 @@ export function ProductCard({ product }: ProductCardProps) {
             <button
               onClick={handleOrderNow}
               disabled={isOutOfStock}
-              className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:bg-neutral-800 disabled:text-neutral-500 py-3 text-xs font-bold text-white transition-all glow-button-emerald cursor-pointer"
+              className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-orange-600 hover:bg-orange-500 disabled:bg-neutral-800 disabled:text-neutral-500 py-3 text-xs font-bold text-white transition-all glow-button-orange cursor-pointer"
             >
               <ShoppingBag className="h-3.5 w-3.5" />
               অর্ডার করুন (Order Now)

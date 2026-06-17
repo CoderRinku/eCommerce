@@ -15,6 +15,8 @@ interface ProductInteractiveProps {
     images: string[];
     category: string;
     stock: number;
+    weight: number;
+    unit: string;
   };
 }
 
@@ -76,7 +78,7 @@ export function ProductInteractive({ product }: ProductInteractiveProps) {
       <button
         onClick={handleAddToCart}
         disabled={isOutOfStock}
-        className="w-full flex items-center justify-center gap-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:bg-neutral-800 disabled:text-neutral-500 py-4 text-sm font-bold text-white transition-all shadow-xl shadow-indigo-600/10 cursor-pointer"
+        className="w-full flex items-center justify-center gap-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:bg-neutral-800 disabled:text-neutral-500 py-4 text-sm font-bold text-white transition-all shadow-xl shadow-emerald-600/10 cursor-pointer"
       >
         <ShoppingBag className="h-5 w-5" />
         {isOutOfStock ? 'Sold Out' : 'Add to Cart'}

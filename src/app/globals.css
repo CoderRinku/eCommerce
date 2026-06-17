@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #07070a;
-  --foreground: #f8fafc;
-  --accent: #6366f1;
+  --background: #fafaf7;
+  --foreground: #0f172a;
+  --accent: #16a34a;
 }
 
 @theme inline {
@@ -26,17 +26,17 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0c0c14;
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27273a;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #6366f1;
+  background: #16a34a;
 }
 
-/* Custom Utilities and Animations */
+/* Custom Animations */
 @keyframes slideIn {
   from {
     transform: translateY(1rem) scale(0.95);
@@ -111,76 +111,63 @@ body {
 /* Premium Gradient Backgrounds */
 .bg-mesh {
   background-image: 
-    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(22, 163, 74, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.04) 0px, transparent 50%);
 }
 
 .glass-card {
-  background: rgba(15, 15, 25, 0.4);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-card-hover:hover {
-  border-color: rgba(99, 102, 241, 0.25);
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.05);
+.glass-card-premium {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Custom Light Mode Overrides */
-html:not(.dark) body {
-  background-color: #fafafa !important;
-  color: #0f172a !important;
+.glass-card-premium:hover {
+  transform: translateY(-6px);
+  border-color: rgba(22, 163, 74, 0.2);
+  box-shadow: 0 20px 45px -12px rgba(22, 163, 74, 0.12);
 }
 
-html:not(.dark) .text-white {
-  color: #0f172a !important;
+/* Glowing Buttons */
+.glow-button-emerald {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px 0 rgba(22, 163, 74, 0.25);
 }
 
-html:not(.dark) .text-neutral-400 {
-  color: #475569 !important;
+.glow-button-emerald:hover {
+  box-shadow: 0 6px 20px 0 rgba(22, 163, 74, 0.4);
+  transform: translateY(-1px);
 }
 
-html:not(.dark) .text-neutral-500 {
-  color: #64748b !important;
+.glow-button-emerald:active {
+  transform: translateY(1px);
 }
 
-html:not(.dark) .bg-neutral-900 {
-  background-color: #f1f5f9 !important;
+.glow-button-amber {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px 0 rgba(245, 158, 11, 0.2);
 }
 
-html:not(.dark) .bg-neutral-950 {
-  background-color: #f8fafc !important;
+.glow-button-amber:hover {
+  box-shadow: 0 6px 20px 0 rgba(245, 158, 11, 0.35);
+  transform: translateY(-1px);
 }
 
-html:not(.dark) .bg-neutral-950\/20 {
-  background-color: rgba(241, 245, 249, 0.4) !important;
+/* Scrollbar customization */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
-
-html:not(.dark) .border-white\/5,
-html:not(.dark) .border-white\/10 {
-  border-color: rgba(0, 0, 0, 0.08) !important;
-}
-
-html:not(.dark) .glass-card {
-  background: rgba(255, 255, 255, 0.75) !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02) !important;
-}
-
-html:not(.dark) .bg-indigo-600\/10 {
-  background-color: rgba(79, 70, 229, 0.08) !important;
-}
-
-html:not(.dark) input,
-html:not(.dark) select,
-html:not(.dark) textarea {
-  background-color: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.12) !important;
-  color: #0f172a !important;
-}
-
-html:not(.dark) .bg-mesh {
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.06) 0px, transparent 50%) !important;
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

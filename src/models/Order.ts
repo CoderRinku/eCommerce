@@ -1,32 +1,29 @@
-import { Schema, model, models } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const OrderItemSchema = new Schema({
   product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
-  quantity: { type: Number, required: true, min: 1 },
-  price: { type: Number, required: true }, // Snapshotted price at transaction checkout
+  quantity: { type: Number, required: true },
+  price: { type: Number, required: true },
+  weight: { type: Number, required: true }, // Weight at checkout
 });
 
 const OrderSchema = new Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: false }, // Optional for guest checkout
     orderItems: [OrderItemSchema],
     shippingAddress: {
       name: { type: String, required: true },
       phone: { type: String, required: true },
       address: { type: String, required: true },
-      district: { type: String, required: true }, // e.g., 'Inside Dhaka', 'Outside Dhaka' for shipping rule calculation
-      city: { type: String, required: true },
+      district: { type: String, required: true }, // 'Inside Dhaka' or 'Outside Dhaka'
     },
-    paymentMethod: { type: String, enum: ['COD', 'bKash', 'Nagad'], default: 'COD' },
-    paymentStatus: { type: String, enum: ['Pending', 'Paid', 'Failed', 'Refunded'], default: 'Pending' },
-    paymentDetails: {
-      transactionId: { type: String },
-      paymentGateway: { type: String }, // 'bkash', 'nagad', or null for COD
-    },
+    paymentMethod: { type: String, enum: ['COD', 'bKash', 'Nagad'], required: true },
+    paymentStatus: { type: String, enum: ['Pending', 'Paid', 'Failed'], default: 'Pending' },
     shippingCharge: { type: Number, required: true },
     discountAmount: { type: Number, default: 0 },
     subTotal: { type: Number, required: true },
     totalAmount: { type: Number, required: true },
+    totalWeight: { type: Number, required: true }, // Accumulated order weight (in grams) for Courier API calculations
     orderStatus: {
       type: String,
       enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
@@ -34,14 +31,13 @@ const OrderSchema = new Schema(
     },
     courierDetails: {
       courierName: { type: String, default: 'Steadfast' },
-      trackingId: { type: String, default: '' },
-      consignmentId: { type: String, default: '' },
-      courierStatus: { type: String, default: 'Pending' },
+      consignmentId: { type: String },
+      trackingId: { type: String },
+      courierStatus: { type: String },
       statusUpdatedByWebhookAt: { type: Date },
     },
-    couponApplied: { type: String, default: '' },
   },
   { timestamps: true }
 );
 
-export const Order = models.Order || model('Order', OrderSchema);
+export const Order = mongoose.models.Order || mongoose.model('Order', OrderSchema);

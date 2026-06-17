@@ -95,7 +95,7 @@ export default function UserDashboard() {
   if (status === 'loading' || loading) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center py-32 bg-mesh">
-        <Loader2 className="h-8 w-8 text-indigo-500 animate-spin" />
+        <Loader2 className="h-8 w-8 text-emerald-500 animate-spin" />
         <p className="mt-4 text-sm text-neutral-400">Loading dashboard...</p>
       </div>
     );
@@ -117,7 +117,7 @@ export default function UserDashboard() {
           <p className="text-neutral-400 font-medium">You haven&apos;t placed any orders yet.</p>
           <button
             onClick={() => router.push('/shop')}
-            className="mt-6 rounded-xl bg-indigo-600 px-6 py-2.5 text-xs font-bold text-white hover:bg-indigo-500 transition-colors cursor-pointer"
+            className="mt-6 rounded-xl bg-emerald-600 px-6 py-2.5 text-xs font-bold text-white hover:bg-emerald-500 transition-colors cursor-pointer"
           >
             Start Shopping
           </button>
@@ -167,7 +167,7 @@ export default function UserDashboard() {
                         <span className="block text-[10px] text-neutral-500 font-semibold uppercase">
                           Steadfast Tracking
                         </span>
-                        <span className="font-bold text-indigo-400 uppercase select-all">
+                        <span className="font-bold text-emerald-400 uppercase select-all">
                           {order.courierDetails.trackingId}
                         </span>
                       </div>
@@ -191,7 +191,7 @@ export default function UserDashboard() {
                       {/* Connection Bar (desktop) */}
                       <div className="absolute left-6 right-6 top-[18px] h-0.5 bg-neutral-800 -z-10 hidden sm:block">
                         <div
-                          className="h-full bg-indigo-500 transition-all duration-500"
+                          className="h-full bg-emerald-500 transition-all duration-500"
                           style={{ width: `${((currentStep - 1) / 3) * 100}%` }}
                         />
                       </div>
@@ -213,7 +213,7 @@ export default function UserDashboard() {
                             <div
                               className={`h-9 w-9 rounded-full flex items-center justify-center border transition-all ${
                                 active
-                                  ? 'bg-indigo-600 border-transparent text-white shadow-lg shadow-indigo-600/20'
+                                  ? 'bg-emerald-600 border-transparent text-white shadow-lg shadow-emerald-600/20'
                                   : 'bg-neutral-900 border-white/5 text-neutral-500'
                               }`}
                             >

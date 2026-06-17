@@ -78,7 +78,7 @@ export default function RegisterPage() {
         <div className="text-center">
           <h1 className="text-2xl font-extrabold text-white">Create Account</h1>
           <p className="mt-2 text-sm text-neutral-400">
-            Join Elite D2C for premium lifestyle shopping
+            Join SokolBazar for pure organic groceries
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export default function RegisterPage() {
                   placeholder="John Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50"
                 />
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function RegisterPage() {
                   placeholder="john@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50"
                 />
               </div>
             </div>
@@ -132,7 +132,7 @@ export default function RegisterPage() {
                   placeholder="Minimum 6 characters"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50"
                 />
               </div>
             </div>
@@ -148,7 +148,7 @@ export default function RegisterPage() {
                   placeholder="e.g. 01712345678"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50"
                 />
               </div>
             </div>
@@ -162,7 +162,7 @@ export default function RegisterPage() {
               <select
                 value={district}
                 onChange={(e) => setDistrict(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white focus:outline-none focus:border-indigo-500/50 cursor-pointer"
+                className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white focus:outline-none focus:border-emerald-500/50 cursor-pointer"
               >
                 <option value="Inside Dhaka">Inside Dhaka</option>
                 <option value="Outside Dhaka">Outside Dhaka</option>
@@ -179,7 +179,7 @@ export default function RegisterPage() {
                   placeholder="House, Road, Area"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50"
                 />
               </div>
             </div>
@@ -188,7 +188,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:bg-neutral-800 disabled:text-neutral-500 py-3.5 text-sm font-bold text-white transition-all shadow-xl shadow-indigo-600/10 cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:bg-neutral-800 disabled:text-neutral-500 py-3.5 text-sm font-bold text-white transition-all shadow-xl shadow-emerald-600/10 cursor-pointer"
           >
             {loading ? (
               <>
@@ -205,7 +205,7 @@ export default function RegisterPage() {
           Already have an account?{' '}
           <Link
             href="/login"
-            className="text-indigo-400 font-semibold hover:text-indigo-300 transition-colors"
+            className="text-emerald-400 font-semibold hover:text-emerald-300 transition-colors"
           >
             Sign In
           </Link>

@@ -15,7 +15,7 @@ interface Coupon {
 }
 
 export default function CartPage() {
-  const { cart, updateQuantity, removeFromCart, cartTotal } = useCart();
+  const { cart, updateQuantity, removeFromCart, cartTotal, cartTotalWeight } = useCart();
   const { toast } = useToast();
 
   const [couponCode, setCouponCode] = useState('');
@@ -77,7 +77,7 @@ export default function CartPage() {
         </p>
         <Link
           href="/shop"
-          className="flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 text-sm font-semibold text-white hover:bg-indigo-500 transition-colors shadow-lg cursor-pointer"
+          className="flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3.5 text-sm font-semibold text-white hover:bg-emerald-500 transition-colors shadow-lg cursor-pointer"
         >
           Go to Shop
           <ArrowRight className="h-4 w-4" />
@@ -119,9 +119,14 @@ export default function CartPage() {
                   <h3 className="mt-1 text-sm font-bold text-white leading-tight">
                     {item.product.title}
                   </h3>
-                  <p className="mt-1 text-xs text-neutral-400 font-semibold">
-                    BDT {price.toLocaleString()} each
-                  </p>
+                  <div className="mt-1.5 flex flex-wrap gap-2 items-center justify-center sm:justify-start">
+                    <span className="text-xs text-neutral-400 font-semibold">
+                      BDT {price.toLocaleString()} each
+                    </span>
+                    <span className="inline-flex items-center gap-0.5 text-[10px] bg-neutral-900 border border-white/5 px-2 py-0.5 rounded-md text-neutral-400 font-bold">
+                      ⚖️ {item.product.weight} {item.product.unit}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Quantity selection & actions */}
@@ -179,7 +184,7 @@ export default function CartPage() {
               Promo Coupon
             </span>
             {appliedCoupon ? (
-              <div className="flex items-center justify-between p-3 rounded-xl bg-indigo-500/5 border border-indigo-500/20 text-xs text-indigo-400">
+              <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20 text-xs text-emerald-400">
                 <span className="font-bold">{appliedCoupon.code} Applied</span>
                 <button
                   onClick={handleRemoveCoupon}
@@ -195,12 +200,12 @@ export default function CartPage() {
                   placeholder="Code (e.g. WELCOME10)"
                   value={couponCode}
                   onChange={(e) => setCouponCode(e.target.value)}
-                  className="flex-1 px-3.5 py-2 rounded-xl bg-neutral-900 border border-white/5 text-xs text-white uppercase placeholder-neutral-500 focus:outline-none focus:border-indigo-500/30"
+                  className="flex-1 px-3.5 py-2 rounded-xl bg-neutral-900 border border-white/5 text-xs text-white uppercase placeholder-neutral-500 focus:outline-none focus:border-emerald-500/30"
                 />
                 <button
                   onClick={handleApplyCoupon}
                   disabled={validatingCoupon}
-                  className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-500 disabled:bg-neutral-800 disabled:text-neutral-500 transition-colors cursor-pointer flex items-center justify-center min-w-[70px]"
+                  className="px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-500 disabled:bg-neutral-800 disabled:text-neutral-500 transition-colors cursor-pointer flex items-center justify-center min-w-[70px]"
                 >
                   {validatingCoupon ? <Loader2 className="h-3 w-3 animate-spin" /> : 'Apply'}
                 </button>
@@ -210,6 +215,10 @@ export default function CartPage() {
 
           {/* Calculations */}
           <div className="space-y-3 pt-3 text-xs">
+            <div className="flex justify-between">
+              <span className="text-neutral-400">Total Weight</span>
+              <span className="font-semibold text-white">{(cartTotalWeight / 1000).toFixed(2)} kg</span>
+            </div>
             {appliedCoupon && (
               <div className="flex justify-between">
                 <span className="text-neutral-400">
@@ -236,7 +245,7 @@ export default function CartPage() {
           {/* Checkout button */}
           <Link
             href="/checkout"
-            className="w-full flex items-center justify-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 py-3.5 text-sm font-semibold text-white transition-all shadow-xl shadow-indigo-600/10 cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3.5 text-sm font-semibold text-white transition-all shadow-xl shadow-emerald-600/10 cursor-pointer"
           >
             Proceed to Checkout
             <ArrowRight className="h-4 w-4" />

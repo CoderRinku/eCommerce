@@ -11,6 +11,8 @@ export interface CartProduct {
   images: string[];
   stock: number;
   category: string;
+  weight: number;
+  unit: string;
 }
 
 export interface CartItem {
@@ -26,6 +28,7 @@ interface CartContextType {
   clearCart: () => void;
   cartCount: number;
   cartTotal: number;
+  cartTotalWeight: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -100,6 +103,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return total + price * item.quantity;
   }, 0);
 
+  const cartTotalWeight = cart.reduce((total, item) => {
+    return total + (item.product.weight || 0) * item.quantity;
+  }, 0);
+
   return (
     <CartContext.Provider
       value={{
@@ -110,6 +117,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         clearCart,
         cartCount,
         cartTotal,
+        cartTotalWeight,
       }}
     >
       {children}

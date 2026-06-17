@@ -1,84 +1,166 @@
 import { connectToDatabase } from '@/lib/db';
 import { Product } from '@/models/Product';
+import { Category } from '@/models/Category';
 import { Coupon } from '@/models/Coupon';
 import Link from 'next/link';
+import {
+  ArrowRight,
+  ShoppingBag,
+  Truck,
+  ShieldCheck,
+  BadgePercent,
+  Leaf,
+  CheckCircle2,
+  Heart,
+  Phone,
+  HelpCircle,
+} from 'lucide-react';
+import { HomeBanner } from '@/components/shop/HomeBanner';
+import { ProductCard } from '@/components/shop/ProductCard';
 
 export const dynamic = 'force-dynamic';
-import { ArrowRight, ShoppingBag, Truck, ShieldCheck, BadgePercent, Star } from 'lucide-react';
-import Image from 'next/image';
 
 export default async function Home() {
   await connectToDatabase();
 
-  // Auto-seed the database if empty so the site displays content out-of-the-box
-  let featuredProducts = await Product.find({ isFeatured: true, isActive: true }).limit(4);
-  if (featuredProducts.length === 0) {
+  // 1. Seed Categories first if empty
+  let categories = await Category.find({ isActive: true });
+  if (categories.length === 0) {
     try {
-      await Product.create([
-        {
-          title: 'Premium Minimalist Watch',
-          slug: 'minimalist-watch',
-          description: 'A sleek, elegant timepiece crafted with surgical-grade stainless steel and sapphire crystal glass. Features Japanese quartz movement.',
-          price: 12000,
-          discountPrice: 9500,
-          images: ['https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80'],
-          category: 'Accessories',
-          stock: 15,
+      const defaultCategories = [
+        { name: 'Honey', slug: 'honey', description: 'Raw and organic forest honey' },
+        { name: 'Ghee', slug: 'ghee', description: 'Pure grass-fed premium hand-churned cow ghee' },
+        { name: 'Spices', slug: 'spices', description: '100% pure native spices ground to perfection' },
+        { name: 'Nuts', slug: 'nuts', description: 'Premium selection of healthy nuts and seed mixes' },
+        { name: 'Traditional Foods', slug: 'traditional-foods', description: 'Homemade traditional pickles and date palm molasses' },
+      ];
+      await Category.create(defaultCategories);
+      categories = await Category.find({ isActive: true });
+    } catch (e) {
+      console.error('Failed to seed default categories:', e);
+    }
+  }
+
+  // 2. Fetch all active products
+  let products = await Product.find({ isActive: true }).populate('category');
+
+  // Seed default products if database is empty
+  if (products.length === 0) {
+    try {
+      const honeyCat = categories.find((c) => c.slug === 'honey');
+      const gheeCat = categories.find((c) => c.slug === 'ghee');
+      const spicesCat = categories.find((c) => c.slug === 'spices');
+      const nutsCat = categories.find((c) => c.slug === 'nuts');
+      const traditionalCat = categories.find((c) => c.slug === 'traditional-foods');
+
+      const defaultProducts = [];
+
+      if (honeyCat) {
+        defaultProducts.push({
+          title: 'Sundarban Raw Wild Honey',
+          slug: 'sundarban-wild-honey',
+          description: '100% pure, natural, and unprocessed forest honey collected directly from the Sundarbans. Packed with active biological enzymes.',
+          price: 950,
+          discountPrice: 850,
+          images: ['https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=800&auto=format&fit=crop&q=80'],
+          category: honeyCat._id,
+          stock: 35,
+          isOrganic: true,
+          weight: 500,
+          unit: 'g',
           isFeatured: true,
           isActive: true,
-        },
-        {
-          title: 'Hyper-Responsive Sneakers',
-          slug: 'hyper-sneakers',
-          description: 'Ultralight running shoes featuring responsive foam cushioning and breathability mesh upper. Perfect for performance and street fashion.',
-          price: 8500,
+        });
+      }
+
+      if (gheeCat) {
+        defaultProducts.push({
+          title: 'Premium Hand-Churned Cow Ghee',
+          slug: 'premium-cow-ghee',
+          description: 'Aromatic, golden, and granular grass-fed cow ghee made using traditional hand-churning methods (Bilona). Preservative free.',
+          price: 1600,
+          discountPrice: 1450,
+          images: ['https://images.unsplash.com/photo-1628294895520-aa33a4f89798?w=800&auto=format&fit=crop&q=80'],
+          category: gheeCat._id,
+          stock: 20,
+          isOrganic: true,
+          weight: 500,
+          unit: 'g',
+          isFeatured: true,
+          isActive: true,
+        });
+      }
+
+      if (spicesCat) {
+        defaultProducts.push({
+          title: 'Organic Ground Turmeric Powder',
+          slug: 'organic-turmeric-powder',
+          description: 'Premium organic turmeric root ground to a fine, rich yellow powder. High curcumin content with no added color or fillers.',
+          price: 250,
           discountPrice: 0,
-          images: ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80'],
-          category: 'Footwear',
-          stock: 25,
+          images: ['https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&auto=format&fit=crop&q=80'],
+          category: spicesCat._id,
+          stock: 50,
+          isOrganic: true,
+          weight: 200,
+          unit: 'g',
           isFeatured: true,
           isActive: true,
-        },
-        {
-          title: 'Ultra-Bass ANC Headphones',
-          slug: 'anc-headphones',
-          description: 'Immersive wireless headphones with hybrid Active Noise Cancelling, 40-hour battery life, and crystal clear voice calls.',
-          price: 15000,
-          discountPrice: 13500,
-          images: ['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80'],
-          category: 'Electronics',
-          stock: 8,
+        });
+      }
+
+      if (nutsCat) {
+        defaultProducts.push({
+          title: 'Mixed Nuts & Seed Energy Booster',
+          slug: 'mixed-nuts-booster',
+          description: 'A high-energy, nutrient-rich blend of almonds, cashews, walnuts, pumpkin seeds, and organic chia. Dry-roasted and unsalted.',
+          price: 750,
+          discountPrice: 680,
+          images: ['https://images.unsplash.com/photo-1596560548464-f010689b7f43?w=800&auto=format&fit=crop&q=80'],
+          category: nutsCat._id,
+          stock: 40,
+          isOrganic: true,
+          weight: 400,
+          unit: 'g',
           isFeatured: true,
           isActive: true,
-        },
-        {
-          title: 'Classic Leather Backpack',
-          slug: 'leather-backpack',
-          description: 'Handcrafted full-grain leather backpack designed to protect your laptop and carry daily essentials. Water-resistant liner.',
-          price: 18000,
-          discountPrice: 16000,
-          images: ['https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&auto=format&fit=crop&q=80'],
-          category: 'Bags',
-          stock: 12,
+        });
+      }
+
+      if (traditionalCat) {
+        defaultProducts.push({
+          title: 'Pure Khejur Gur (Premium Date Molasses)',
+          slug: 'pure-khejur-gur',
+          description: 'Traditional granular date palm molasses hand-cooked by rural farmers in Jessore. Rich in authentic aroma and iron content.',
+          price: 480,
+          discountPrice: 420,
+          images: ['https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=800&auto=format&fit=crop&q=80'],
+          category: traditionalCat._id,
+          stock: 15,
+          isOrganic: true,
+          weight: 1000,
+          unit: 'g',
           isFeatured: true,
           isActive: true,
-        },
-      ]);
-      featuredProducts = await Product.find({ isFeatured: true, isActive: true }).limit(4);
+        });
+      }
+
+      await Product.create(defaultProducts);
+      products = await Product.find({ isActive: true }).populate('category');
     } catch (e) {
       console.error('Failed to seed default products:', e);
     }
   }
 
-  // Auto-seed a welcome coupon code if no coupons exist
+  // 3. Seed Coupon if empty
   const couponCount = await Coupon.countDocuments();
   if (couponCount === 0) {
     try {
       await Coupon.create({
-        code: 'WELCOME10',
+        code: 'SOKOL10',
         discountType: 'percentage',
         discountValue: 10,
-        minOrderAmount: 2000,
+        minOrderAmount: 1500,
         startDate: new Date('2026-06-01'),
         endDate: new Date('2027-12-31'),
         usageLimit: 500,
@@ -86,213 +168,276 @@ export default async function Home() {
         isActive: true,
       });
     } catch (e) {
-      console.error('Failed to seed welcome coupon:', e);
+      console.error('Failed to seed default coupon:', e);
     }
   }
 
-  return (
-    <div className="bg-mesh min-h-screen relative overflow-hidden">
-      {/* Animated Glowing Orbital Blobs (Background) */}
-      <div className="absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[120px] animate-float pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[-10%] h-[600px] w-[600px] rounded-full bg-violet-600/10 blur-[130px] animate-float-reverse pointer-events-none" />
+  // Bangla labels for categories
+  const banglaCategoryMap: Record<string, string> = {
+    'honey': 'মধু কালেকশন (Honey)',
+    'ghee': 'খাঁটি ঘি (Ghee)',
+    'spices': 'খাঁটি মসলা গুড়া (Spices)',
+    'nuts': 'বাদাম ও বীজ মিক্স (Nuts)',
+    'traditional-foods': 'ঐতিহ্যবাহী খাবার (Traditional)',
+  };
 
-      {/* Hero Section */}
-      <section className="relative px-6 py-16 md:py-24 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10">
-        {/* Left Column: Heading and CTAs */}
-        <div className="lg:col-span-7 flex flex-col items-start text-left space-y-6">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/5 text-xs text-indigo-400 font-semibold animate-fade-in-up duration-700">
-            <BadgePercent className="h-4 w-4 text-indigo-400" />
-            Use Coupon WELCOME10 for 10% Off
+  return (
+    <div className="bg-mesh min-h-screen relative overflow-hidden pb-16">
+      {/* Background blobs for premium depth */}
+      <div className="absolute top-[-5%] left-[-5%] h-[400px] w-[400px] rounded-full bg-emerald-500/5 blur-[100px] animate-float pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[-5%] h-[500px] w-[500px] rounded-full bg-amber-500/5 blur-[120px] animate-float-reverse pointer-events-none" />
+
+      {/* Top Notification Promo Banner */}
+      <div className="bg-gradient-to-r from-emerald-900/5 to-amber-900/5 border-b border-neutral-100 py-2.5 px-4 text-center text-[11px] md:text-xs text-neutral-600 flex justify-center items-center gap-2 font-bold z-20 relative">
+        <BadgePercent className="h-4 w-4 text-amber-550 text-amber-655" />
+        <span>স্পেশাল প্রোমো কোড: <strong className="text-neutral-800">SOKOL10</strong> ব্যবহারে পাচ্ছেন ১০% ছাড় (ন্যূনতম অর্ডার ১৫০০ টাকা)।</span>
+      </div>
+
+      {/* Hero Category Layout Section (inspired by ghorerbazar.com layout) */}
+      <section className="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-6 md:py-10 z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Category Sidebar (Desktop Only) */}
+          <div className="hidden lg:block lg:col-span-3 rounded-3xl glass-card p-5 border border-neutral-200/60 self-start shadow-sm">
+            <h3 className="text-[10px] font-bold uppercase text-neutral-500 tracking-widest mb-5 px-1.5 flex items-center justify-between">
+              <span>ক্যাটাগরি সমূহ</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </h3>
+            <ul className="space-y-2">
+              {categories.map((cat) => (
+                <li key={cat._id.toString()}>
+                  <a
+                    href={`#${cat.slug}`}
+                    className="flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs font-bold text-neutral-600 hover:text-emerald-600 hover:bg-emerald-500/8 border border-transparent hover:border-emerald-500/10 transition-all duration-300 group"
+                  >
+                    <span className="flex items-center gap-3">
+                      <Leaf className="h-4 w-4 text-emerald-500/60 group-hover:text-emerald-500 group-hover:rotate-6 transition-all" />
+                      {banglaCategoryMap[cat.slug] || cat.name}
+                    </span>
+                    <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                  </a>
+                </li>
+              ))}
+              <li className="pt-2">
+                <Link
+                  href="/shop"
+                  className="flex items-center justify-between px-3.5 py-3.5 rounded-2xl text-xs font-extrabold text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-300 shadow-lg shadow-emerald-600/15 hover:shadow-emerald-600/35 cursor-pointer"
+                >
+                  <span className="flex items-center gap-3">
+                    <ShoppingBag className="h-4 w-4" />
+                    সব প্রোডাক্ট দেখুন
+                  </span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </li>
+            </ul>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1] animate-fade-in-up delay-100 duration-700">
-            Redefining Everyday Essentials with{' '}
-            <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-500 bg-clip-text text-transparent drop-shadow-sm">
-              Premium Design
-            </span>
-          </h1>
-          <p className="text-base sm:text-lg text-neutral-400 leading-relaxed max-w-xl animate-fade-in-up delay-200 duration-700">
-            Handcrafted lifestyle products made with precision and minimal aesthetics. Experience express checkout with cash on delivery inside Bangladesh.
-          </p>
-          <div className="flex flex-wrap gap-4 pt-4 animate-fade-in-up delay-300 duration-700">
-            <Link
-              href="/shop"
-              className="flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-4 text-sm font-semibold text-white hover:bg-indigo-500 transition-all duration-300 shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/30 hover:scale-[1.02] group cursor-pointer"
-            >
-              Explore Catalog
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              href="/shop?category=Electronics"
-              className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/5 px-6 py-4 text-sm font-semibold text-neutral-300 hover:text-white hover:bg-white/10 hover:border-white/10 transition-all duration-300 cursor-pointer"
-            >
-              Featured Deal
-            </Link>
+
+          {/* Right Main Slider Column */}
+          <div className="lg:col-span-9 flex flex-col gap-6">
+            <HomeBanner />
           </div>
         </div>
+      </section>
 
-        {/* Right Column: Glassmorphic Floating Preview Card */}
-        <div className="lg:col-span-5 flex justify-center lg:justify-end animate-fade-in-up delay-200 duration-700">
-          <div className="relative w-full max-w-[360px] aspect-[4/5] rounded-3xl glass-card p-5 animate-float shadow-2xl hover:scale-[1.02] transition-all duration-500 hover:border-indigo-500/20 group">
-            {/* Glow background behind image */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/15 to-violet-500/15 rounded-3xl filter blur-xl opacity-40 group-hover:opacity-60 transition-opacity pointer-events-none" />
-            
-            {/* Product Image */}
-            <div className="relative w-full h-[70%] rounded-2xl overflow-hidden bg-neutral-900 border border-white/5 shadow-inner">
-              <Image
-                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80"
-                alt="Ultra-Bass ANC Headphones"
-                fill
-                priority
-                sizes="(max-w-768px) 100vw, 30vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-neutral-950/80 border border-white/10 text-[9px] font-bold text-indigo-400 backdrop-blur-md uppercase tracking-wider">
-                Hot Deal
-              </span>
+      {/* Mobile Category Navigation (Horizontal Scrollbar) */}
+      <section className="lg:hidden px-4 mb-6 relative z-10">
+        <h3 className="text-[9px] font-bold uppercase text-neutral-500 tracking-wider mb-3 px-1">
+          ক্যাটাগরি বেছে নিন
+        </h3>
+        <div className="flex items-center gap-2 overflow-x-auto pb-2.5 scrollbar-none">
+          {categories.map((cat) => (
+            <a
+              key={cat._id.toString()}
+              href={`#${cat.slug}`}
+              className="flex-none px-4.5 py-2.5 rounded-2xl bg-white border border-neutral-200 text-xs font-bold text-neutral-600 hover:text-emerald-650 active:bg-neutral-50 whitespace-nowrap transition-all duration-300"
+            >
+              {banglaCategoryMap[cat.slug] || cat.name}
+            </a>
+          ))}
+          <Link
+            href="/shop"
+            className="flex-none px-4.5 py-2.5 rounded-2xl bg-emerald-600/10 border border-emerald-500/20 text-xs font-bold text-emerald-600 whitespace-nowrap"
+          >
+            সব প্রোডাক্ট
+          </Link>
+        </div>
+      </section>
+
+      {/* Feature / Trust highlights banner */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 md:my-10 z-10 relative">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="flex items-center gap-4.5 p-5.5 rounded-3xl glass-card-premium border border-neutral-100">
+            <div className="h-11 w-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 shrink-0 shadow-inner">
+              <Truck className="h-5.5 w-5.5" />
             </div>
+            <div>
+              <h4 className="text-xs md:text-sm font-black text-neutral-800 leading-tight">দেশব্যাপী ক্যাশ অন ডেলিভারি</h4>
+              <p className="text-[10px] text-neutral-500 mt-1 font-medium">পণ্য বুঝে পেয়ে টাকা পরিশোধ করুন</p>
+            </div>
+          </div>
 
-            {/* Description / Rating */}
-            <div className="mt-4 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[9px] font-bold text-neutral-500 uppercase tracking-widest">Audio / Electronics</span>
-                <div className="flex items-center gap-1 text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-md text-[9px] font-bold border border-amber-400/15">
-                  <Star className="h-3 w-3 fill-amber-400" />
-                  <span>4.9</span>
+          <div className="flex items-center gap-4.5 p-5.5 rounded-3xl glass-card-premium border border-neutral-100">
+            <div className="h-11 w-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 shrink-0 shadow-inner">
+              <ShieldCheck className="h-5.5 w-5.5" />
+            </div>
+            <div>
+              <h4 className="text-xs md:text-sm font-black text-neutral-800 leading-tight">১০০% খাঁটি পণ্যের নিশ্চয়তা</h4>
+              <p className="text-[10px] text-neutral-500 mt-1 font-medium">১০০% অর্গানিক ও ফ্রেশ ফুড গ্যারান্টি</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4.5 p-5.5 rounded-3xl glass-card-premium border border-neutral-100">
+            <div className="h-11 w-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 shrink-0 shadow-inner">
+              <CheckCircle2 className="h-5.5 w-5.5" />
+            </div>
+            <div>
+              <h4 className="text-xs md:text-sm font-black text-neutral-800 leading-tight">সহজ রিটার্ন পলিসি</h4>
+              <p className="text-[10px] text-neutral-500 mt-1 font-medium">পছন্দ না হলে ইনস্ট্যান্ট ফেরতযোগ্য</p>
+            </div>
+          </div>
+
+          <a href="tel:01810000000" className="flex items-center gap-4.5 p-5.5 rounded-3xl glass-card-premium border border-neutral-100 hover:border-emerald-500/20 transition-all cursor-pointer">
+            <div className="h-11 w-11 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-550 text-amber-600 shrink-0 shadow-inner">
+              <Phone className="h-5.5 w-5.5" />
+            </div>
+            <div>
+              <h4 className="text-xs md:text-sm font-black text-neutral-800 leading-tight">সহায়তার জন্য কল করুন</h4>
+              <p className="text-[10px] text-emerald-600 font-bold mt-1">০১৮১-০০০০০০০ (২৪/৭ সাপোর্ট)</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      {/* Category Wise Products Shelves */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-20 relative z-10">
+        {categories.map((category) => {
+          // Filter products for this specific category
+          const categoryProducts = products.filter(
+            (prod) =>
+              prod.category &&
+              (typeof prod.category === 'object'
+                ? prod.category.slug === category.slug
+                : prod.category === category._id.toString())
+          ).slice(0, 4); // Limit to 4 on home screen shelf
+
+          if (categoryProducts.length === 0) return null;
+
+          return (
+            <div key={category._id.toString()} id={category.slug} className="scroll-mt-24 space-y-8">
+              {/* Shelf Header */}
+              <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-neutral-100 pb-5 gap-4">
+                <div>
+                  <h2 className="text-xl md:text-2xl font-black text-neutral-800 flex items-center gap-3">
+                    <span className="relative flex h-3 w-3 shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    {banglaCategoryMap[category.slug] || category.name}
+                  </h2>
+                  <p className="text-xs text-neutral-500 mt-1.5 leading-relaxed">
+                    {category.description || `${category.name} collection selected directly for premium pure standards`}
+                  </p>
                 </div>
-              </div>
-              <h3 className="text-sm font-extrabold text-white group-hover:text-indigo-400 transition-colors">Elite ANC Headphones</h3>
-              <div className="flex justify-between items-center pt-2 border-t border-white/5">
-                <span className="text-xs font-extrabold text-white">BDT 13,500</span>
-                <Link href="/product/anc-headphones" className="text-[10px] font-bold text-indigo-400 hover:underline flex items-center gap-1">
-                  Buy Now
+                <Link
+                  href={`/shop?category=${category.name}`}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:text-emerald-500 transition-colors shrink-0"
+                >
+                  সব দেখুন (View All)
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
-            </div>
 
-            {/* Floating mini stats pill */}
-            <div className="absolute -left-6 bottom-1/3 px-3 py-2 rounded-xl glass-card border border-white/10 flex items-center gap-2 shadow-lg animate-float-reverse">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-              <span className="text-[9px] font-bold text-white whitespace-nowrap">8 left in stock</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Selling Points Grid */}
-      <section className="border-t border-b border-white/5 bg-neutral-950/20 py-16">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="flex items-start gap-4">
-            <div className="p-3 rounded-lg bg-indigo-600/10 border border-indigo-500/20 text-indigo-400">
-              <Truck className="h-6 w-6" />
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-white">Express Delivery</h3>
-              <p className="mt-2 text-sm text-neutral-400">
-                Inside Dhaka delivery in 24-48 hours. Express shipping everywhere outside Dhaka.
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4">
-            <div className="p-3 rounded-lg bg-indigo-600/10 border border-indigo-500/20 text-indigo-400">
-              <ShieldCheck className="h-6 w-6" />
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-white">Secure Cash on Delivery</h3>
-              <p className="mt-2 text-sm text-neutral-400">
-                Pay on arrival at your doorstep. We support bKash, Nagad, and COD methods.
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4">
-            <div className="p-3 rounded-lg bg-indigo-600/10 border border-indigo-500/20 text-indigo-400">
-              <Star className="h-6 w-6" />
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-white">Surgical Grade Quality</h3>
-              <p className="mt-2 text-sm text-neutral-400">
-                A single brand committed to sustainable sourcing and pristine material craftsmanship.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products Showcase */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between mb-12">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Featured Catalog</h2>
-            <p className="mt-2 text-sm text-neutral-400">Selected creations representing our design system</p>
-          </div>
-          <Link
-            href="/shop"
-            className="flex items-center gap-1.5 text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer"
-          >
-            See all products
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {featuredProducts.map((product) => {
-            const hasDiscount = product.discountPrice > 0;
-            return (
-              <div
-                key={product._id.toString()}
-                className="group relative flex flex-col rounded-2xl glass-card p-4 transition-all duration-300 hover:border-indigo-500/20"
-              >
-                {/* Product Image Container */}
-                <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-neutral-900">
-                  <Image
-                    src={product.images[0]}
-                    alt={product.title}
-                    fill
-                    sizes="(max-w-768px) 100vw, 25vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {hasDiscount && (
-                    <span className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-indigo-600 text-xs font-bold text-white shadow-lg">
-                      Sale
-                    </span>
-                  )}
-                </div>
-
-                {/* Product Text info */}
-                <div className="mt-4 flex-1 flex flex-col">
-                  <span className="text-xs text-neutral-500 font-medium">{product.category}</span>
-                  <h3 className="mt-1.5 text-sm font-bold text-white line-clamp-1">{product.title}</h3>
-                  <p className="mt-2 text-xs text-neutral-400 line-clamp-2">{product.description}</p>
-                  
-                  {/* Price & Cart navigation */}
-                  <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
-                    <div>
-                      {hasDiscount ? (
-                        <div className="flex items-baseline gap-2">
-                          <span className="text-sm font-extrabold text-white">
-                            BDT {product.discountPrice.toLocaleString()}
-                          </span>
-                          <span className="text-xs text-neutral-500 line-through">
-                            BDT {product.price.toLocaleString()}
-                          </span>
-                        </div>
-                      ) : (
-                        <span className="text-sm font-extrabold text-white">
-                          BDT {product.price.toLocaleString()}
-                        </span>
-                      )}
-                    </div>
-                    <Link
-                      href={`/product/${product.slug}`}
-                      className="p-2 rounded-lg bg-white/5 border border-white/5 text-neutral-400 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-transparent transition-all cursor-pointer"
-                    >
-                      <ShoppingBag className="h-4 w-4" />
-                    </Link>
-                  </div>
-                </div>
+              {/* Shelf Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {categoryProducts.map((prod) => (
+                  <ProductCard key={prod._id.toString()} product={prod} />
+                ))}
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
+      </section>
+
+      {/* Guarantee & Sourcing Policy details */}
+      <section className="bg-neutral-900/10 border-t border-b border-neutral-200/60 py-16 mt-16 z-10 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-xl md:text-2xl font-extrabold text-neutral-800">আমরা কেন সেরা? (Why Choose Us)</h2>
+          <p className="mt-3 text-xs md:text-sm text-neutral-500 max-w-xl mx-auto">
+            আমরা গ্রাহকদের জন্য খাঁটি, কেমিক্যালমুক্ত এবং প্রাকৃতিক খাবার সরবরাহ করতে প্রতিশ্রুতিবদ্ধ।
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left">
+            <div className="p-6 rounded-2xl glass-card-premium border border-neutral-150 space-y-4 shadow-sm">
+              <div className="h-10 w-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600">
+                <Leaf className="h-5 w-5" />
+              </div>
+              <h3 className="text-sm md:text-base font-bold text-neutral-800">১০০% খাঁটি ও প্রাকৃতিক</h3>
+              <p className="text-xs text-neutral-550 leading-relaxed">
+                আমাদের প্রতিটি পণ্য সরাসরি চাষী ও খামারিদের থেকে সংগ্রহ করা হয়। কোনো কৃত্রিম প্রিজারভেটিভ, ভেজাল বা কেমিক্যাল ব্যবহার করা হয় না।
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl glass-card-premium border border-neutral-150 space-y-4 shadow-sm">
+              <div className="h-10 w-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600">
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <h3 className="text-sm md:text-base font-bold text-neutral-800">কোয়ালিটি কন্ট্রোল টিম</h3>
+              <p className="text-xs text-neutral-550 leading-relaxed">
+                আমাদের প্রতিটি ব্যাচ নিজস্ব কোয়ালিটি কন্ট্রোল টিম দ্বারা ল্যাবরেটরি টেস্ট করা হয়। মান বজায় রাখতে কোনো আপোষ করা হয় না।
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl glass-card-premium border border-neutral-150 space-y-4 shadow-sm">
+              <div className="h-10 w-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600">
+                <Heart className="h-5 w-5" />
+              </div>
+              <h3 className="text-sm md:text-base font-bold text-neutral-800">ইনস্ট্যান্ট রিফান্ড গ্যারান্টি</h3>
+              <p className="text-xs text-neutral-555 text-neutral-550 leading-relaxed">
+                পণ্য গ্রহণের পর যদি কোনো ধরণের ভেজাল বা ত্রুটি প্রমাণিত হয়, তবে আমরা কোনো প্রশ্ন ছাড়াই ইনস্ট্যান্ট রিফান্ড বা এক্সচেঞ্জ অফার করি।
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Customer FAQ / Trust Build Help */}
+      <section className="max-w-4xl mx-auto px-4 py-16 space-y-8 z-10 relative">
+        <div className="text-center">
+          <h2 className="text-xl md:text-2xl font-extrabold text-neutral-800">সাধারণ জিজ্ঞাসা (Frequently Asked Questions)</h2>
+          <p className="text-xs text-neutral-500 mt-2">অর্ডার করা ও প্রোডাক্ট সম্পর্কিত সাধারণ কিছু প্রশ্নের উত্তর</p>
+        </div>
+
+        <div className="space-y-4">
+          <div className="p-5 rounded-2xl glass-card-premium border border-neutral-150 space-y-2 shadow-xs">
+            <h4 className="text-sm font-bold text-neutral-800 flex items-center gap-2">
+              <HelpCircle className="h-4 w-4 text-emerald-600 shrink-0" />
+              আমি কীভাবে অর্ডার করব?
+            </h4>
+            <p className="text-xs text-neutral-550 pl-6 leading-relaxed">
+              যে পণ্যটি কিনতে চান তার নিচের "অর্ডার করুন (Order Now)" বাটনে ক্লিক করুন। এটি আপনাকে সরাসরি চেকআউট পেজে নিয়ে যাবে। সেখানে নাম, মোবাইল নম্বর এবং ঠিকানা পূরণ করে "অর্ডার প্লেস করুন" বাটনে ক্লিক করলেই আপনার অর্ডার সম্পন্ন হবে। কোনো লগইন করার প্রয়োজন নেই!
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl glass-card-premium border border-neutral-150 space-y-2 shadow-xs">
+            <h4 className="text-sm font-bold text-neutral-800 flex items-center gap-2">
+              <HelpCircle className="h-4 w-4 text-emerald-600 shrink-0" />
+              ডেলিভারি চার্জ কত এবং কত সময় লাগবে?
+            </h4>
+            <p className="text-xs text-neutral-550 pl-6 leading-relaxed">
+              ঢাকা সিটির ভিতরে ডেলিভারি চার্জ ৬০ টাকা এবং ২৪ থেকে ৪৮ ঘণ্টার মধ্যে ডেলিভারি দেওয়া হয়। ঢাকা সিটির বাইরে ডেলিভারি চার্জ ১২০ টাকা এবং ২ থেকে ৩ দিনের মধ্যে ডেলিভারি সম্পন্ন হয়।
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl glass-card-premium border border-neutral-150 space-y-2 shadow-xs">
+            <h4 className="text-sm font-bold text-neutral-800 flex items-center gap-2">
+              <HelpCircle className="h-4 w-4 text-emerald-600 shrink-0" />
+              আমি কি ডেলিভারি নেওয়ার সময় পণ্য চেক করতে পারব?
+            </h4>
+            <p className="text-xs text-neutral-550 pl-6 leading-relaxed">
+              হ্যাঁ, অবশ্যই! ডেলিভারি ম্যানের সামনে প্রোডাক্টটি খুলে কালার, দানা, সুগন্ধ এবং সিল যাচাই করে দেখে তারপর মূল্য পরিশোধ করবেন। কোনো সমস্যা থাকলে ডেলিভারি ম্যানের কাছেই রিটার্ন করতে পারবেন।
+            </p>
+          </div>
         </div>
       </section>
     </div>

@@ -18,11 +18,11 @@ export function Footer() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           {/* Brand Info */}
           <div className="space-y-4">
-            <span className="bg-gradient-to-r from-indigo-400 to-violet-500 bg-clip-text text-lg font-bold tracking-tight text-transparent">
-              ELITE D2C
+            <span className="bg-gradient-to-r from-emerald-400 to-amber-500 bg-clip-text text-lg font-extrabold tracking-tight text-transparent">
+              🍃 SokolBazar
             </span>
             <p className="text-sm text-neutral-400 max-w-xs">
-              Crafting premium lifestyle essentials. Direct-to-Consumer, without the retail markup.
+              SokolBazar is a premium D2C organic food platform offering 100% chemical-free, pure honey, ghee, spices, nuts, and traditional foods.
             </p>
           </div>
 
@@ -60,7 +60,7 @@ export function Footer() {
                   Dhaka, Bangladesh
                 </li>
                 <li className="text-sm text-neutral-400">
-                  support@elited2c.com
+                  support@sokolbazar.com
                 </li>
               </ul>
             </div>
@@ -70,7 +70,7 @@ export function Footer() {
         {/* Bottom copyright block */}
         <div className="mt-12 border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-neutral-500">
-            &copy; {new Date().getFullYear()} Elite D2C. All rights reserved.
+            &copy; {new Date().getFullYear()} SokolBazar. All rights reserved.
           </p>
           <p className="text-xs text-neutral-500">
             Made with Next.js, Mongoose & Steadfast Courier API.

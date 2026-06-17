@@ -6,6 +6,7 @@ import { Coupon } from '@/models/Coupon';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { createCourierOrder } from '@/lib/courier-sdk';
+import { calculateShippingCharge } from '@/lib/shipping';
 
 // Rollback helper to restore stock if checkout fails midway
 async function rollbackStock(items: { productId: string; quantity: number }[]) {
@@ -45,9 +46,6 @@ export async function POST(req: Request) {
   const deductedItems: { productId: string; quantity: number }[] = [];
   try {
     const session = await getServerSession(authOptions);
-    if (!session) {
-      return NextResponse.json({ message: 'Unauthorized. Login required' }, { status: 401 });
-    }
 
     const body = await req.json();
     const { orderItems, shippingAddress, paymentMethod, couponApplied } = body;
@@ -63,6 +61,7 @@ export async function POST(req: Request) {
 
     // 1. Validate items and verify stocks
     let subTotal = 0;
+    let totalWeight = 0;
     const validatedItems = [];
 
     for (const item of orderItems) {
@@ -93,10 +92,14 @@ export async function POST(req: Request) {
 
       const itemPrice = dbProduct.discountPrice > 0 ? dbProduct.discountPrice : dbProduct.price;
       subTotal += itemPrice * item.quantity;
+      const itemWeight = (dbProduct.weight || 0) * item.quantity;
+      totalWeight += itemWeight;
+
       validatedItems.push({
         product: dbProduct._id,
         quantity: item.quantity,
         price: itemPrice,
+        weight: dbProduct.weight || 0,
       });
     }
 
@@ -124,17 +127,13 @@ export async function POST(req: Request) {
     }
 
     // 3. Shipping Charge Logic
-    // Inside Dhaka: BDT 60, Outside Dhaka: BDT 120
-    const isInsideDhaka = shippingAddress.district.toLowerCase().includes('dhaka');
-    const shippingCharge = isInsideDhaka
-      ? Number(process.env.SHIPPING_CHARGE_INSIDE_DHAKA) || 60
-      : Number(process.env.SHIPPING_CHARGE_OUTSIDE_DHAKA) || 120;
+    const shippingCharge = calculateShippingCharge(totalWeight, shippingAddress.district);
 
     const totalAmount = subTotal + shippingCharge - discountAmount;
 
     // 4. Create Order in Database
     const order = await Order.create({
-      user: session.user.id,
+      user: session?.user?.id || undefined,
       orderItems: validatedItems,
       shippingAddress,
       paymentMethod,
@@ -143,6 +142,7 @@ export async function POST(req: Request) {
       discountAmount,
       subTotal,
       totalAmount,
+      totalWeight,
       orderStatus: 'Pending',
       couponApplied: couponApplied || '',
     });
@@ -150,12 +150,14 @@ export async function POST(req: Request) {
     // 5. Auto Dispatch to Courier System
     // COD amount is what the courier collects. If order is prepaid, COD collection is 0.
     const codAmountToCollect = paymentMethod === 'COD' ? totalAmount : 0;
+    const orderWeightInKg = totalWeight / 1000;
     const courierResult = await createCourierOrder({
       invoiceId: order._id.toString(),
       recipientName: shippingAddress.name,
       recipientPhone: shippingAddress.phone,
       recipientAddress: `${shippingAddress.address}, ${shippingAddress.city}`,
       codAmount: codAmountToCollect,
+      weight: orderWeightInKg,
       note: `Coupon: ${couponApplied || 'None'}. Subtotal: ${subTotal}`,
     });
 

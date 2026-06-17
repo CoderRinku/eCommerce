@@ -16,6 +16,9 @@ interface ProductItem {
   category: string;
   stock: number;
   isFeatured: boolean;
+  isOrganic: boolean;
+  weight: number;
+  unit: string;
 }
 
 export default function AdminProductsManager() {
@@ -37,6 +40,9 @@ export default function AdminProductsManager() {
   const [category, setCategory] = useState('');
   const [stock, setStock] = useState('');
   const [isFeatured, setIsFeatured] = useState(false);
+  const [weight, setWeight] = useState('');
+  const [unit, setUnit] = useState('g');
+  const [isOrganic, setIsOrganic] = useState(true);
 
   const [saving, setSaving] = useState(false);
 
@@ -72,6 +78,9 @@ export default function AdminProductsManager() {
     setCategory('');
     setStock('');
     setIsFeatured(false);
+    setWeight('');
+    setUnit('g');
+    setIsOrganic(true);
     setShowModal(true);
   };
 
@@ -86,12 +95,15 @@ export default function AdminProductsManager() {
     setCategory(product.category);
     setStock(product.stock.toString());
     setIsFeatured(product.isFeatured);
+    setWeight(product.weight?.toString() || '');
+    setUnit(product.unit || 'g');
+    setIsOrganic(product.isOrganic !== undefined ? product.isOrganic : true);
     setShowModal(true);
   };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !slug || !description || !price || !imageUrl || !category || !stock) {
+    if (!title || !slug || !description || !price || !imageUrl || !category || !stock || !weight) {
       toast('Please fill in all required fields', 'error');
       return;
     }
@@ -107,6 +119,9 @@ export default function AdminProductsManager() {
       category,
       stock: parseInt(stock),
       isFeatured,
+      isOrganic,
+      weight: parseFloat(weight),
+      unit,
     };
 
     try {
@@ -198,6 +213,7 @@ export default function AdminProductsManager() {
               <tr className="border-b border-white/5 text-neutral-500 bg-neutral-900/10">
                 <th className="p-4 font-semibold uppercase">Product</th>
                 <th className="p-4 font-semibold uppercase">Category</th>
+                <th className="p-4 font-semibold uppercase">Weight & Organic</th>
                 <th className="p-4 font-semibold uppercase">Price</th>
                 <th className="p-4 font-semibold uppercase">Stock</th>
                 <th className="p-4 font-semibold uppercase">Featured</th>
@@ -226,6 +242,16 @@ export default function AdminProductsManager() {
                     </div>
                   </td>
                   <td className="p-4 text-white font-medium">{product.category}</td>
+                  <td className="p-4 text-white font-medium">
+                    <div className="flex flex-col gap-1">
+                      <span className="font-semibold text-white">{product.weight} {product.unit}</span>
+                      {product.isOrganic ? (
+                        <span className="text-[9px] text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded w-max">🍃 Organic</span>
+                      ) : (
+                        <span className="text-[9px] text-neutral-400 font-bold bg-neutral-800 px-1.5 py-0.5 rounded w-max">Regular</span>
+                      )}
+                    </div>
+                  </td>
                   <td className="p-4">
                     {product.discountPrice > 0 ? (
                       <div className="flex flex-col">
@@ -390,6 +416,38 @@ export default function AdminProductsManager() {
                 </div>
               </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[10px] font-semibold text-neutral-400 mb-1.5 uppercase">
+                    Weight / Volume
+                  </label>
+                  <input
+                    type="number"
+                    required
+                    placeholder="e.g. 500"
+                    value={weight}
+                    onChange={(e) => setWeight(e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-lg bg-neutral-800 border border-white/5 text-white focus:outline-none focus:border-indigo-500/40"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-semibold text-neutral-400 mb-1.5 uppercase">
+                    Unit
+                  </label>
+                  <select
+                    value={unit}
+                    onChange={(e) => setUnit(e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-lg bg-neutral-800 border border-white/5 text-white focus:outline-none focus:border-indigo-500/40 cursor-pointer"
+                  >
+                    <option value="g">g (Grams)</option>
+                    <option value="kg">kg (Kilograms)</option>
+                    <option value="ml">ml (Milliliters)</option>
+                    <option value="litre">litre (Litres)</option>
+                    <option value="pcs">pcs (Pieces)</option>
+                  </select>
+                </div>
+              </div>
+
               <div>
                 <label className="block text-[10px] font-semibold text-neutral-400 mb-1.5 uppercase">
                   Product Image URL
@@ -404,20 +462,38 @@ export default function AdminProductsManager() {
                 />
               </div>
 
-              <div className="flex items-center gap-2 pt-2">
-                <input
-                  type="checkbox"
-                  id="featured"
-                  checked={isFeatured}
-                  onChange={(e) => setIsFeatured(e.target.checked)}
-                  className="rounded bg-neutral-800 border-white/5 text-indigo-600 focus:ring-0 focus:ring-offset-0 h-4 w-4 cursor-pointer"
-                />
-                <label
-                  htmlFor="featured"
-                  className="text-[10px] font-semibold text-neutral-400 mb-0.5 uppercase select-none cursor-pointer"
-                >
-                  Featured product (Landing Page showcase)
-                </label>
+              <div className="flex flex-col gap-3 pt-2">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="featured"
+                    checked={isFeatured}
+                    onChange={(e) => setIsFeatured(e.target.checked)}
+                    className="rounded bg-neutral-800 border-white/5 text-indigo-600 focus:ring-0 focus:ring-offset-0 h-4 w-4 cursor-pointer"
+                  />
+                  <label
+                    htmlFor="featured"
+                    className="text-[10px] font-semibold text-neutral-400 mb-0.5 uppercase select-none cursor-pointer"
+                  >
+                    Featured product (Landing Page showcase)
+                  </label>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="organic"
+                    checked={isOrganic}
+                    onChange={(e) => setIsOrganic(e.target.checked)}
+                    className="rounded bg-neutral-800 border-white/5 text-indigo-600 focus:ring-0 focus:ring-offset-0 h-4 w-4 cursor-pointer"
+                  />
+                  <label
+                    htmlFor="organic"
+                    className="text-[10px] font-semibold text-neutral-400 mb-0.5 uppercase select-none cursor-pointer"
+                  >
+                    🍃 Certified Organic / Pure Honey & Ghee Quality
+                  </label>
+                </div>
               </div>
 
               <div className="flex justify-end gap-3 pt-4 border-t border-white/5 mt-6">

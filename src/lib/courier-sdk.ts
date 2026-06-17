@@ -4,6 +4,7 @@ interface CourierOrderParams {
   recipientPhone: string;
   recipientAddress: string;
   codAmount: number;
+  weight?: number; // Weight in kg
   note?: string;
 }
 
@@ -46,6 +47,7 @@ export async function createCourierOrder(params: CourierOrderParams) {
         recipient_address: params.recipientAddress,
         cod_amount: params.codAmount,
         note: params.note || '',
+        weight: params.weight || 0.5,
       }),
     });
 

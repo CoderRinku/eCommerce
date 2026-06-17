@@ -57,7 +57,7 @@ function LoginForm() {
     <div className="w-full max-w-md rounded-2xl glass-card p-8 space-y-8 animate-slide-in">
       <div className="text-center">
         <h1 className="text-2xl font-extrabold text-white">Sign In</h1>
-        <p className="mt-2 text-sm text-neutral-400">Welcome back to Elite D2C Store</p>
+        <p className="mt-2 text-sm text-neutral-400">Welcome back to SokolBazar</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -73,7 +73,7 @@ function LoginForm() {
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50"
+              className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50"
             />
           </div>
         </div>
@@ -90,7 +90,7 @@ function LoginForm() {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-indigo-500/50"
+              className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50"
             />
           </div>
         </div>
@@ -98,7 +98,7 @@ function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:bg-neutral-800 disabled:text-neutral-500 py-3.5 text-sm font-bold text-white transition-all shadow-xl shadow-indigo-600/10 cursor-pointer"
+          className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:bg-neutral-800 disabled:text-neutral-500 py-3.5 text-sm font-bold text-white transition-all shadow-xl shadow-emerald-600/10 cursor-pointer"
         >
           {loading ? (
             <>
@@ -115,7 +115,7 @@ function LoginForm() {
         Don&apos;t have an account?{' '}
         <Link
           href="/register"
-          className="text-indigo-400 font-semibold hover:text-indigo-300 transition-colors"
+          className="text-emerald-400 font-semibold hover:text-emerald-300 transition-colors"
         >
           Sign Up
         </Link>
@@ -130,7 +130,7 @@ export default function LoginPage() {
       <Suspense
         fallback={
           <div className="flex flex-col items-center justify-center gap-4">
-            <Loader2 className="h-8 w-8 text-indigo-500 animate-spin" />
+            <Loader2 className="h-8 w-8 text-emerald-500 animate-spin" />
             <p className="text-sm text-neutral-400">Loading sign in...</p>
           </div>
         }

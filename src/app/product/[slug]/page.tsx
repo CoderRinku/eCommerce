@@ -49,7 +49,7 @@ export default async function ProductDetailPage({
       {/* Back to Shop link */}
       <Link
         href="/shop"
-        className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white mb-12 transition-colors cursor-pointer"
+        className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-orange-600 mb-12 transition-colors cursor-pointer"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to Catalog
@@ -57,7 +57,7 @@ export default async function ProductDetailPage({
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         {/* Product Image Panel */}
-        <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-white/5 bg-neutral-900 shadow-2xl">
+        <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xl">
           <Image
             src={product.images[0]}
             alt={product.title}
@@ -77,20 +77,20 @@ export default async function ProductDetailPage({
         <div className="flex flex-col justify-between">
           <div>
             <div className="flex flex-wrap items-center gap-3">
-              <span className="px-3 py-1.5 rounded-lg bg-neutral-900 border border-white/5 text-xs text-neutral-400 font-semibold uppercase tracking-wider">
+              <span className="px-3 py-1.5 rounded-lg bg-white border border-neutral-200 text-xs text-neutral-550 text-neutral-500 font-semibold uppercase tracking-wider">
                 {product.category}
               </span>
               {product.isOrganic && (
-                <span className="px-3 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/20 text-xs text-orange-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                <span className="px-3 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/20 text-xs text-orange-600 font-bold uppercase tracking-wider flex items-center gap-1">
                   <span>🍃</span> 100% Organic
                 </span>
               )}
-              <span className="px-3 py-1.5 rounded-lg bg-neutral-900 border border-white/5 text-xs text-neutral-400 font-bold uppercase tracking-wider flex items-center gap-1">
+              <span className="px-3 py-1.5 rounded-lg bg-white border border-neutral-200 text-xs text-neutral-550 text-neutral-500 font-bold uppercase tracking-wider flex items-center gap-1">
                 <span>⚖️</span> {product.weight} {product.unit}
               </span>
             </div>
 
-            <h1 className="mt-6 text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+            <h1 className="mt-6 text-3xl sm:text-4xl font-extrabold text-neutral-800 leading-tight">
               {product.title}
             </h1>
 
@@ -98,15 +98,15 @@ export default async function ProductDetailPage({
             <div className="mt-6 flex items-baseline gap-3">
               {hasDiscount ? (
                 <>
-                  <span className="text-3xl font-extrabold text-amber-500">
+                  <span className="text-3xl font-extrabold text-orange-600 text-amber-500">
                     BDT {product.discountPrice.toLocaleString()}
                   </span>
-                  <span className="text-base text-neutral-500 line-through">
+                  <span className="text-base text-neutral-400 text-neutral-500 line-through">
                     BDT {product.price.toLocaleString()}
                   </span>
                 </>
               ) : (
-                <span className="text-3xl font-extrabold text-white">
+                <span className="text-3xl font-extrabold text-neutral-800">
                   BDT {product.price.toLocaleString()}
                 </span>
               )}
@@ -123,7 +123,7 @@ export default async function ProductDetailPage({
                     : 'bg-orange-500'
                 }`}
               />
-              <span className="text-xs text-neutral-400 font-medium">
+              <span className="text-xs text-neutral-500 font-medium">
                 {isOutOfStock
                   ? 'Sold Out'
                   : product.stock <= 10
@@ -133,27 +133,27 @@ export default async function ProductDetailPage({
             </div>
 
             {/* Description details */}
-            <p className="mt-8 text-neutral-400 text-sm leading-relaxed border-t border-white/5 pt-8">
+            <p className="mt-8 text-neutral-600 text-sm leading-relaxed border-t border-neutral-200 pt-8">
               {product.description}
             </p>
           </div>
 
           {/* Action Call & Trust Badges */}
-          <div className="mt-12 space-y-8 border-t border-white/5 pt-8">
+          <div className="mt-12 space-y-8 border-t border-neutral-200 pt-8">
             <ProductInteractive product={product} />
 
             {/* Quality indicators */}
-            <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-8 text-center text-[10px] sm:text-xs text-neutral-400">
+            <div className="grid grid-cols-3 gap-4 border-t border-neutral-200 pt-8 text-center text-[10px] sm:text-xs text-neutral-500">
               <div className="flex flex-col items-center gap-2">
-                <Clock className="h-5 w-5 text-orange-400" />
+                <Clock className="h-5 w-5 text-orange-600" />
                 <span>Express Shipping</span>
               </div>
               <div className="flex flex-col items-center gap-2">
-                <ShieldCheck className="h-5 w-5 text-orange-400" />
+                <ShieldCheck className="h-5 w-5 text-orange-600" />
                 <span>COD Doorstep Support</span>
               </div>
               <div className="flex flex-col items-center gap-2">
-                <RefreshCw className="h-5 w-5 text-orange-400" />
+                <RefreshCw className="h-5 w-5 text-orange-600" />
                 <span>Quality Inspected</span>
               </div>
             </div>

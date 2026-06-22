@@ -57,7 +57,7 @@ export function Navbar() {
                   : 'text-neutral-500 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-600/40 hover:after:w-full after:transition-all after:duration-300'
               }`}
             >
-              Home
+              হোম (Home)
             </Link>
             <Link
               href="/shop"
@@ -67,7 +67,7 @@ export function Navbar() {
                   : 'text-neutral-500 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-orange-600/40 hover:after:w-full after:transition-all after:duration-300'
               }`}
             >
-              Shop
+              শপ (Shop)
             </Link>
           </div>
 
@@ -122,15 +122,15 @@ export function Navbar() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="px-3 py-1.5 text-sm font-semibold text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 text-sm font-semibold text-neutral-600 hover:text-orange-600 transition-colors cursor-pointer"
                 >
-                  Sign In
+                  লগইন (Sign In)
                 </Link>
                 <Link
                   href="/register"
                   className="rounded-lg bg-orange-600 px-3.5 py-1.5 text-sm font-medium text-white hover:bg-orange-500 transition-colors shadow-lg shadow-orange-600/20 cursor-pointer"
                 >
-                  Sign Up
+                  রেজিস্টার (Sign Up)
                 </Link>
               </div>
             )}

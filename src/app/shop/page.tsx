@@ -78,8 +78,8 @@ export default function Shop() {
     <div className="bg-mesh min-h-screen py-16 px-6 max-w-7xl mx-auto w-full">
       {/* Title */}
       <div className="mb-12">
-        <h1 className="text-3xl font-extrabold text-white">SokolBazar Organic Foods</h1>
-        <p className="mt-2 text-sm text-neutral-400">
+        <h1 className="text-3xl font-extrabold text-neutral-850 text-neutral-800">SokolBazar Organic Foods</h1>
+        <p className="mt-2 text-sm text-neutral-500">
           Source chemical-free, pure, and premium organic groceries direct from farmers.
         </p>
       </div>
@@ -88,13 +88,13 @@ export default function Shop() {
       <div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-12">
         {/* Search Input */}
         <div className="relative w-full md:max-w-md">
-          <Search className="absolute left-4 top-3.5 h-4 w-4 text-neutral-500" />
+          <Search className="absolute left-4 top-3.5 h-4 w-4 text-neutral-400" />
           <input
             type="text"
             placeholder="Search organic honey, ghee, spices..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900/50 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-orange-500/50 transition-colors"
+            className="w-full pl-11 pr-4 py-3 rounded-xl bg-white border border-neutral-250 border-neutral-200 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-orange-500 transition-colors shadow-sm"
           />
         </div>
 
@@ -107,7 +107,7 @@ export default function Shop() {
               className={`px-4.5 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                 selectedCategory === category
                   ? 'bg-orange-600 border-transparent text-white shadow-lg shadow-orange-600/15'
-                  : 'bg-neutral-900/40 border-white/5 text-neutral-400 hover:text-white hover:bg-neutral-900/80'
+                  : 'bg-white border-neutral-200 text-neutral-605 text-neutral-600 hover:text-orange-600 hover:bg-orange-50/50 hover:border-orange-500/20'
               }`}
             >
               {category}
@@ -123,8 +123,8 @@ export default function Shop() {
           <p className="text-sm text-neutral-500">Loading SokolBazar catalog...</p>
         </div>
       ) : filteredProducts.length === 0 ? (
-        <div className="text-center py-32 border border-dashed border-white/5 rounded-2xl bg-neutral-900/10">
-          <p className="text-neutral-400">No organic foods matched your selection.</p>
+        <div className="text-center py-32 border border-dashed border-neutral-200 rounded-2xl bg-white shadow-sm">
+          <p className="text-neutral-500">No organic foods matched your selection.</p>
         </div>
       ) : (
         /* Products Grid */

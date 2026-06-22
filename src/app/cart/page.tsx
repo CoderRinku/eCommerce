@@ -70,8 +70,8 @@ export default function CartPage() {
   if (cart.length === 0) {
     return (
       <div className="bg-mesh min-h-screen py-32 px-6 flex flex-col items-center justify-center text-center">
-        <h1 className="text-2xl font-bold text-white mb-4">Your Shopping Cart is Empty</h1>
-        <p className="text-neutral-400 text-sm mb-8 max-w-sm">
+        <h1 className="text-2xl font-bold text-neutral-800 mb-4">Your Shopping Cart is Empty</h1>
+        <p className="text-neutral-500 text-sm mb-8 max-w-sm">
           Looks like you haven&apos;t added anything to your cart yet. Explore our premium catalog to
           get started.
         </p>
@@ -88,7 +88,7 @@ export default function CartPage() {
 
   return (
     <div className="bg-mesh min-h-screen py-16 px-6 max-w-7xl mx-auto w-full flex-1">
-      <h1 className="text-3xl font-extrabold text-white mb-12">Your Cart</h1>
+      <h1 className="text-3xl font-extrabold text-neutral-800 mb-12">Your Cart</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
         {/* Cart Items List */}
@@ -99,10 +99,10 @@ export default function CartPage() {
             return (
               <div
                 key={item.product._id}
-                className="flex flex-col sm:flex-row items-center gap-6 p-4 rounded-2xl glass-card w-full"
+                className="flex flex-col sm:flex-row items-center gap-6 p-4 rounded-2xl glass-card w-full shadow-sm"
               >
                 {/* Image */}
-                <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-neutral-900 border border-white/5">
+                <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-white border border-neutral-200">
                   <Image
                     src={item.product.images[0]}
                     alt={item.product.title}
@@ -116,14 +116,14 @@ export default function CartPage() {
                   <span className="text-[10px] text-neutral-500 font-semibold uppercase">
                     {item.product.category}
                   </span>
-                  <h3 className="mt-1 text-sm font-bold text-white leading-tight">
+                  <h3 className="mt-1 text-sm font-bold text-neutral-800 leading-tight">
                     {item.product.title}
                   </h3>
                   <div className="mt-1.5 flex flex-wrap gap-2 items-center justify-center sm:justify-start">
-                    <span className="text-xs text-neutral-400 font-semibold">
+                    <span className="text-xs text-neutral-500 font-semibold">
                       BDT {price.toLocaleString()} each
                     </span>
-                    <span className="inline-flex items-center gap-0.5 text-[10px] bg-neutral-900 border border-white/5 px-2 py-0.5 rounded-md text-neutral-400 font-bold">
+                    <span className="inline-flex items-center gap-0.5 text-[10px] bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded-md text-neutral-600 font-bold">
                       ⚖️ {item.product.weight} {item.product.unit}
                     </span>
                   </div>
@@ -131,33 +131,33 @@ export default function CartPage() {
 
                 {/* Quantity selection & actions */}
                 <div className="flex items-center gap-6 justify-between w-full sm:w-auto">
-                  <div className="flex items-center rounded-lg bg-neutral-900 border border-white/5 overflow-hidden">
+                  <div className="flex items-center rounded-lg bg-white border border-neutral-200 overflow-hidden shadow-sm">
                     <button
                       onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
                       disabled={item.quantity <= 1}
-                      className="p-2 text-neutral-400 hover:text-white disabled:opacity-40 transition-colors cursor-pointer"
+                      className="p-2 text-neutral-400 hover:text-orange-600 disabled:opacity-40 transition-colors cursor-pointer"
                     >
                       <Minus className="h-3.5 w-3.5" />
                     </button>
-                    <span className="px-3 text-xs font-bold text-white w-8 text-center">
+                    <span className="px-3 text-xs font-bold text-neutral-800 w-8 text-center">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
                       disabled={item.quantity >= item.product.stock}
-                      className="p-2 text-neutral-400 hover:text-white disabled:opacity-40 transition-colors cursor-pointer"
+                      className="p-2 text-neutral-400 hover:text-orange-600 disabled:opacity-40 transition-colors cursor-pointer"
                     >
                       <Plus className="h-3.5 w-3.5" />
                     </button>
                   </div>
 
-                  <p className="text-sm font-extrabold text-white w-24 text-right">
+                  <p className="text-sm font-extrabold text-neutral-800 w-24 text-right">
                     BDT {(price * item.quantity).toLocaleString()}
                   </p>
 
                   <button
                     onClick={() => removeFromCart(item.product._id)}
-                    className="p-2 rounded-lg hover:bg-rose-500/10 text-neutral-500 hover:text-rose-400 transition-all cursor-pointer animate-fade-in"
+                    className="p-2 rounded-lg hover:bg-rose-500/10 text-neutral-400 hover:text-rose-500 transition-all cursor-pointer animate-fade-in"
                   >
                     <Trash2 className="h-4.5 w-4.5" />
                   </button>
@@ -168,27 +168,27 @@ export default function CartPage() {
         </div>
 
         {/* Order Summary Card */}
-        <div className="rounded-2xl glass-card p-6 space-y-6">
-          <h2 className="text-lg font-bold text-white">Order Summary</h2>
+        <div className="rounded-2xl glass-card p-6 space-y-6 shadow-sm">
+          <h2 className="text-lg font-bold text-neutral-800">Order Summary</h2>
 
           {/* Subtotal */}
-          <div className="flex justify-between text-sm py-3 border-b border-white/5">
-            <span className="text-neutral-400">Subtotal</span>
-            <span className="font-bold text-white">BDT {cartTotal.toLocaleString()}</span>
+          <div className="flex justify-between text-sm py-3 border-b border-neutral-200">
+            <span className="text-neutral-500">Subtotal</span>
+            <span className="font-bold text-neutral-800">BDT {cartTotal.toLocaleString()}</span>
           </div>
 
           {/* Coupon Code Input */}
           <div className="space-y-3 pt-3">
-            <span className="text-xs text-neutral-400 font-medium flex items-center gap-1.5">
+            <span className="text-xs text-neutral-500 font-medium flex items-center gap-1.5">
               <Ticket className="h-3.5 w-3.5" />
               Promo Coupon
             </span>
             {appliedCoupon ? (
-              <div className="flex items-center justify-between p-3 rounded-xl bg-orange-500/5 border border-orange-500/20 text-xs text-orange-400">
-                <span className="font-bold">{appliedCoupon.code} Applied</span>
+              <div className="flex items-center justify-between p-3 rounded-xl bg-orange-50 border border-orange-100 text-xs text-orange-600 font-bold">
+                <span>{appliedCoupon.code} Applied</span>
                 <button
                   onClick={handleRemoveCoupon}
-                  className="font-bold text-rose-400 hover:text-rose-300 transition-colors cursor-pointer"
+                  className="font-bold text-rose-500 hover:text-rose-600 transition-colors cursor-pointer"
                 >
                   Remove
                 </button>
@@ -200,12 +200,12 @@ export default function CartPage() {
                   placeholder="Code (e.g. WELCOME10)"
                   value={couponCode}
                   onChange={(e) => setCouponCode(e.target.value)}
-                  className="flex-1 px-3.5 py-2 rounded-xl bg-neutral-900 border border-white/5 text-xs text-white uppercase placeholder-neutral-500 focus:outline-none focus:border-orange-500/30"
+                  className="flex-1 px-3.5 py-2 rounded-xl bg-white border border-neutral-200 text-xs text-neutral-800 uppercase placeholder-neutral-400 focus:outline-none focus:border-orange-500/50 transition-colors shadow-sm"
                 />
                 <button
                   onClick={handleApplyCoupon}
                   disabled={validatingCoupon}
-                  className="px-4 py-2 rounded-xl bg-orange-600 text-white text-xs font-semibold hover:bg-orange-500 disabled:bg-neutral-800 disabled:text-neutral-500 transition-colors cursor-pointer flex items-center justify-center min-w-[70px]"
+                  className="px-4 py-2 rounded-xl bg-orange-600 text-white text-xs font-semibold hover:bg-orange-500 disabled:bg-neutral-200 disabled:text-neutral-400 transition-colors cursor-pointer flex items-center justify-center min-w-[70px]"
                 >
                   {validatingCoupon ? <Loader2 className="h-3 w-3 animate-spin" /> : 'Apply'}
                 </button>
@@ -214,30 +214,30 @@ export default function CartPage() {
           </div>
 
           {/* Calculations */}
-          <div className="space-y-3 pt-3 text-xs">
+          <div className="space-y-3 pt-3 text-xs border-t border-neutral-200">
             <div className="flex justify-between">
-              <span className="text-neutral-400">Total Weight</span>
-              <span className="font-semibold text-white">{(cartTotalWeight / 1000).toFixed(2)} kg</span>
+              <span className="text-neutral-500">Total Weight</span>
+              <span className="font-semibold text-neutral-800">{(cartTotalWeight / 1000).toFixed(2)} kg</span>
             </div>
             {appliedCoupon && (
               <div className="flex justify-between">
-                <span className="text-neutral-400">
+                <span className="text-neutral-500">
                   Discount ({appliedCoupon.discountValue}
                   {appliedCoupon.discountType === 'percentage' ? '%' : ' BDT'})
                 </span>
-                <span className="text-orange-400">- BDT {discountAmount.toLocaleString()}</span>
+                <span className="text-orange-600 font-bold">- BDT {discountAmount.toLocaleString()}</span>
               </div>
             )}
             <div className="flex justify-between">
-              <span className="text-neutral-400">Shipping</span>
+              <span className="text-neutral-500">Shipping</span>
               <span className="text-neutral-500 font-medium">Calculated at Checkout</span>
             </div>
           </div>
 
           {/* Grand Total */}
-          <div className="flex justify-between items-baseline pt-6 border-t border-white/5">
-            <span className="text-sm font-medium text-white">Estimated Total</span>
-            <span className="text-xl font-extrabold text-white">
+          <div className="flex justify-between items-baseline pt-6 border-t border-neutral-200">
+            <span className="text-sm font-medium text-neutral-800">Estimated Total</span>
+            <span className="text-xl font-extrabold text-neutral-800">
               BDT {totalAmount.toLocaleString()}
             </span>
           </div>

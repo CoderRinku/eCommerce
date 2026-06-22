@@ -54,43 +54,43 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md rounded-2xl glass-card p-8 space-y-8 animate-slide-in">
+    <div className="w-full max-w-md rounded-2xl glass-card p-8 space-y-8 animate-slide-in shadow-sm">
       <div className="text-center">
-        <h1 className="text-2xl font-extrabold text-white">Sign In</h1>
-        <p className="mt-2 text-sm text-neutral-400">Welcome back to SokolBazar</p>
+        <h1 className="text-2xl font-extrabold text-neutral-800">Sign In</h1>
+        <p className="mt-2 text-sm text-neutral-500">Welcome back to SokolBazar</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-xs font-semibold text-neutral-400 mb-2 uppercase">
+          <label className="block text-xs font-semibold text-neutral-500 mb-2 uppercase">
             Email Address
           </label>
           <div className="relative">
-            <Mail className="absolute left-3.5 top-3.5 h-4 w-4 text-neutral-500" />
+            <Mail className="absolute left-3.5 top-3.5 h-4 w-4 text-neutral-400" />
             <input
               type="email"
               required
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50"
+              className="w-full pl-11 pr-4 py-3 rounded-xl bg-white border border-neutral-200 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-orange-500/50 shadow-sm"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-neutral-400 mb-2 uppercase">
+          <label className="block text-xs font-semibold text-neutral-500 mb-2 uppercase">
             Password
           </label>
           <div className="relative">
-            <Lock className="absolute left-3.5 top-3.5 h-4 w-4 text-neutral-500" />
+            <Lock className="absolute left-3.5 top-3.5 h-4 w-4 text-neutral-400" />
             <input
               type="password"
               required
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50"
+              className="w-full pl-11 pr-4 py-3 rounded-xl bg-white border border-neutral-200 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-orange-500/50 shadow-sm"
             />
           </div>
         </div>
@@ -98,7 +98,7 @@ function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:bg-neutral-800 disabled:text-neutral-500 py-3.5 text-sm font-bold text-white transition-all shadow-xl shadow-emerald-600/10 cursor-pointer"
+          className="w-full flex items-center justify-center gap-2 rounded-xl bg-orange-600 hover:bg-orange-500 disabled:bg-neutral-200 disabled:text-neutral-400 py-3.5 text-sm font-bold text-white transition-all shadow-xl shadow-orange-600/10 cursor-pointer"
         >
           {loading ? (
             <>
@@ -111,11 +111,11 @@ function LoginForm() {
         </button>
       </form>
 
-      <p className="text-center text-xs text-neutral-500">
+      <p className="text-center text-xs text-neutral-500 font-medium">
         Don&apos;t have an account?{' '}
         <Link
           href="/register"
-          className="text-emerald-400 font-semibold hover:text-emerald-300 transition-colors"
+          className="text-orange-600 font-semibold hover:text-orange-500 transition-colors"
         >
           Sign Up
         </Link>
@@ -130,8 +130,8 @@ export default function LoginPage() {
       <Suspense
         fallback={
           <div className="flex flex-col items-center justify-center gap-4">
-            <Loader2 className="h-8 w-8 text-emerald-500 animate-spin" />
-            <p className="text-sm text-neutral-400">Loading sign in...</p>
+            <Loader2 className="h-8 w-8 text-orange-500 animate-spin" />
+            <p className="text-sm text-neutral-500">Loading sign in...</p>
           </div>
         }
       >

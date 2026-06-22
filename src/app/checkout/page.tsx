@@ -128,7 +128,7 @@ export default function CheckoutPage() {
     return (
       <div className="flex-1 flex flex-col items-center justify-center py-32 bg-mesh">
         <Loader2 className="h-8 w-8 text-orange-500 animate-spin" />
-        <p className="mt-4 text-sm text-neutral-400">Loading checkout session...</p>
+        <p className="mt-4 text-sm text-neutral-500">Loading checkout session...</p>
       </div>
     );
   }
@@ -136,7 +136,7 @@ export default function CheckoutPage() {
   if (cart.length === 0) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center py-32 text-center bg-mesh">
-        <h1 className="text-xl font-bold text-white mb-4">Your Cart is Empty</h1>
+        <h1 className="text-xl font-bold text-neutral-800 mb-4">Your Cart is Empty</h1>
         <button
           onClick={() => router.push('/shop')}
           className="rounded-xl bg-orange-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-orange-500 transition-colors"
@@ -149,21 +149,21 @@ export default function CheckoutPage() {
 
   return (
     <div className="bg-mesh min-h-screen py-16 px-6 max-w-7xl mx-auto w-full flex-1">
-      <h1 className="text-3xl font-extrabold text-white mb-12">Checkout</h1>
+      <h1 className="text-3xl font-extrabold text-neutral-850 text-neutral-800 mb-12">Checkout</h1>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
         {/* Shipping & Payment Fields */}
         <div className="lg:col-span-2 space-y-8">
           {/* Shipping Form */}
-          <div className="rounded-2xl glass-card p-6 space-y-6">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <Truck className="h-5 w-5 text-orange-400" />
+          <div className="rounded-2xl glass-card p-6 space-y-6 shadow-sm">
+            <h2 className="text-lg font-bold text-neutral-800 flex items-center gap-2">
+              <Truck className="h-5 w-5 text-orange-600" />
               Delivery Details
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className="block text-xs font-semibold text-neutral-400 mb-2 uppercase">
+                <label className="block text-xs font-semibold text-neutral-500 mb-2 uppercase">
                   Full Name
                 </label>
                 <input
@@ -171,11 +171,11 @@ export default function CheckoutPage() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white focus:outline-none focus:border-orange-500/50"
+                  className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-200 text-sm text-neutral-850 text-neutral-800 focus:outline-none focus:border-orange-500/50 shadow-sm"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-neutral-400 mb-2 uppercase">
+                <label className="block text-xs font-semibold text-neutral-500 mb-2 uppercase">
                   Phone Number
                 </label>
                 <input
@@ -184,19 +184,19 @@ export default function CheckoutPage() {
                   placeholder="e.g. 01712345678"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white focus:outline-none focus:border-orange-500/50"
+                  className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-200 text-sm text-neutral-850 text-neutral-800 focus:outline-none focus:border-orange-500/50 shadow-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-neutral-400 mb-2 uppercase">
+              <label className="block text-xs font-semibold text-neutral-500 mb-2 uppercase">
                 Shipping District
               </label>
               <select
                 value={district}
                 onChange={(e) => setDistrict(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white focus:outline-none focus:border-orange-500/50 cursor-pointer"
+                className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-200 text-sm text-neutral-800 focus:outline-none focus:border-orange-500/50 cursor-pointer shadow-sm"
               >
                 <option value="Inside Dhaka">Inside Dhaka (Express Shipping - BDT 60)</option>
                 <option value="Outside Dhaka">Outside Dhaka (Express Shipping - BDT 120)</option>
@@ -204,7 +204,7 @@ export default function CheckoutPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-neutral-400 mb-2 uppercase">
+              <label className="block text-xs font-semibold text-neutral-500 mb-2 uppercase">
                 Full Address
               </label>
               <textarea
@@ -213,15 +213,15 @@ export default function CheckoutPage() {
                 placeholder="House, Flat, Road, Area details"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-white/5 text-sm text-white focus:outline-none focus:border-orange-500/50"
+                className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-200 text-sm text-neutral-850 text-neutral-800 focus:outline-none focus:border-orange-500/50 shadow-sm"
               />
             </div>
           </div>
 
           {/* Payment Options */}
-          <div className="rounded-2xl glass-card p-6 space-y-6">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <CreditCard className="h-5 w-5 text-orange-400" />
+          <div className="rounded-2xl glass-card p-6 space-y-6 shadow-sm">
+            <h2 className="text-lg font-bold text-neutral-800 flex items-center gap-2">
+              <CreditCard className="h-5 w-5 text-orange-600" />
               Payment Method
             </h2>
 
@@ -229,8 +229,8 @@ export default function CheckoutPage() {
               <label
                 className={`flex flex-col items-center justify-center p-4 rounded-xl border cursor-pointer transition-all ${
                   paymentMethod === 'COD'
-                    ? 'bg-orange-600/10 border-orange-500 text-white'
-                    : 'bg-neutral-900/50 border-white/5 text-neutral-400 hover:text-white'
+                    ? 'bg-orange-500/10 border-orange-500 text-neutral-800 font-bold'
+                    : 'bg-white border-neutral-200 text-neutral-500 hover:text-neutral-800'
                 }`}
               >
                 <input
@@ -248,8 +248,8 @@ export default function CheckoutPage() {
               <label
                 className={`flex flex-col items-center justify-center p-4 rounded-xl border cursor-pointer transition-all ${
                   paymentMethod === 'bKash'
-                    ? 'bg-orange-600/10 border-orange-500 text-white'
-                    : 'bg-neutral-900/50 border-white/5 text-neutral-400 hover:text-white'
+                    ? 'bg-orange-500/10 border-orange-500 text-neutral-800 font-bold'
+                    : 'bg-white border-neutral-200 text-neutral-500 hover:text-neutral-800'
                 }`}
               >
                 <input
@@ -267,8 +267,8 @@ export default function CheckoutPage() {
               <label
                 className={`flex flex-col items-center justify-center p-4 rounded-xl border cursor-pointer transition-all ${
                   paymentMethod === 'Nagad'
-                    ? 'bg-orange-600/10 border-orange-500 text-white'
-                    : 'bg-neutral-900/50 border-white/5 text-neutral-400 hover:text-white'
+                    ? 'bg-orange-500/10 border-orange-500 text-neutral-800 font-bold'
+                    : 'bg-white border-neutral-200 text-neutral-500 hover:text-neutral-800'
                 }`}
               >
                 <input
@@ -285,8 +285,8 @@ export default function CheckoutPage() {
             </div>
 
             {paymentMethod !== 'COD' && (
-              <div className="p-4 rounded-xl bg-orange-500/5 border border-orange-500/15 text-xs text-orange-400 flex items-center gap-3">
-                <ShieldCheck className="h-5 w-5 text-orange-400 shrink-0" />
+              <div className="p-4 rounded-xl bg-orange-500/5 border border-orange-500/15 text-xs text-orange-600 flex items-center gap-3">
+                <ShieldCheck className="h-5 w-5 text-orange-600 shrink-0" />
                 <span>
                   Sandbox Mode: Confirming checkout will trigger instant mock authorization.
                 </span>
@@ -296,8 +296,8 @@ export default function CheckoutPage() {
         </div>
 
         {/* Order Summary Checkout Panel */}
-        <div className="rounded-2xl glass-card p-6 space-y-6">
-          <h2 className="text-lg font-bold text-white">Order Summary</h2>
+        <div className="rounded-2xl glass-card p-6 space-y-6 shadow-sm">
+          <h2 className="text-lg font-bold text-neutral-800">Order Summary</h2>
 
           {/* Cart item listing */}
           <div className="space-y-4 max-h-60 overflow-y-auto pr-2">
@@ -307,12 +307,12 @@ export default function CheckoutPage() {
               return (
                 <div key={item.product._id} className="flex justify-between items-center gap-3 text-xs">
                   <div className="flex-1">
-                    <p className="font-bold text-white line-clamp-1">{item.product.title}</p>
+                    <p className="font-bold text-neutral-850 text-neutral-800 line-clamp-1">{item.product.title}</p>
                     <p className="text-neutral-500 mt-0.5">
                       {item.quantity} x BDT {price.toLocaleString()}
                     </p>
                   </div>
-                  <span className="font-bold text-white text-right">
+                  <span className="font-bold text-neutral-800 text-right">
                     BDT {(price * item.quantity).toLocaleString()}
                   </span>
                 </div>
@@ -320,33 +320,33 @@ export default function CheckoutPage() {
             })}
           </div>
 
-          <div className="space-y-3 pt-6 border-t border-white/5 text-xs">
+          <div className="space-y-3 pt-6 border-t border-neutral-200 text-xs">
             <div className="flex justify-between">
-              <span className="text-neutral-400">Items Subtotal</span>
-              <span className="font-medium text-white">BDT {cartTotal.toLocaleString()}</span>
+              <span className="text-neutral-500">Items Subtotal</span>
+              <span className="font-medium text-neutral-800">BDT {cartTotal.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-neutral-400">Total Order Weight</span>
-              <span className="font-medium text-white">{(cartTotalWeight / 1000).toFixed(2)} kg</span>
+              <span className="text-neutral-500">Total Order Weight</span>
+              <span className="font-medium text-neutral-800">{(cartTotalWeight / 1000).toFixed(2)} kg</span>
             </div>
             {discountAmount > 0 && (
               <div className="flex justify-between">
-                <span className="text-neutral-400">Coupon Discount ({couponCode})</span>
-                <span className="text-orange-400 font-bold">
+                <span className="text-neutral-500">Coupon Discount ({couponCode})</span>
+                <span className="text-orange-600 font-bold">
                   - BDT {discountAmount.toLocaleString()}
                 </span>
               </div>
             )}
             <div className="flex justify-between">
-              <span className="text-neutral-400">Shipping Charge</span>
-              <span className="font-medium text-white">BDT {shippingCharge.toLocaleString()}</span>
+              <span className="text-neutral-500">Shipping Charge</span>
+              <span className="font-medium text-neutral-800">BDT {shippingCharge.toLocaleString()}</span>
             </div>
           </div>
 
           {/* Total */}
-          <div className="flex justify-between items-baseline pt-6 border-t border-white/5">
-            <span className="text-sm font-semibold text-white">Total Amount</span>
-            <span className="text-xl font-extrabold text-white">
+          <div className="flex justify-between items-baseline pt-6 border-t border-neutral-200">
+            <span className="text-sm font-semibold text-neutral-800">Total Amount</span>
+            <span className="text-xl font-extrabold text-neutral-800">
               BDT {grandTotal.toLocaleString()}
             </span>
           </div>
@@ -355,7 +355,7 @@ export default function CheckoutPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full flex items-center justify-center gap-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 py-3.5 text-sm font-bold text-white transition-all shadow-xl shadow-orange-600/10 cursor-pointer disabled:bg-neutral-800 disabled:text-neutral-500"
+            className="w-full flex items-center justify-center gap-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 py-3.5 text-sm font-bold text-white transition-all shadow-xl shadow-orange-600/10 cursor-pointer disabled:bg-neutral-200 disabled:text-neutral-400"
           >
             {submitting ? (
               <>
